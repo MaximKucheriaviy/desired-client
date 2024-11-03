@@ -7,6 +7,7 @@ export const StyledHeader = styled(Box)`
   background-color: ${MainTheme.palette.primary.main};
   width: 100%;
   position: fixed;
+  z-index: 500;
 `;
 
 export const LinkStyle = {

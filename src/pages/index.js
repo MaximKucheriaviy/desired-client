@@ -4,13 +4,19 @@ import Image from "next/image";
 import MainTheme from "@/theme/mainTheme";
 import { HeaderSizes } from "@/service/suportStyles";
 import { ContainerFixed } from "@/Components/Container/Container";
-import { getCategories } from "@/service/api";
+import { getCategories, getTypes } from "@/service/api";
 import Link from "next/link";
 import Grid from "@mui/material/Grid2";
+import { EroticTypeList } from "@/Components/ErolicTypeList/EroticTypeList";
 
 export const getStaticProps = async () => {
   try {
     const categories = await getCategories();
+
+    for (let i = 0; i < categories.length; i++) {
+      categories[i].types = await getTypes(categories[i]._id);
+    }
+
     return {
       props: {
         categories: [...categories, { _id: "111", name: "Новинки" }],
@@ -35,6 +41,7 @@ export default function Home({ categories = [] }) {
           display="flex"
           justifyContent="space-around"
           sx={{
+            paddingBottom: HeaderSizes,
             paddingTop: HeaderSizes,
             background: `linear-gradient(160deg, ${MainTheme.palette.primary.main} 0%,${MainTheme.palette.primary.dark} 100%);`,
           }}
@@ -99,6 +106,37 @@ export default function Home({ categories = [] }) {
             </Grid>
           </ContainerFixed>
         </Box>
+        <EroticTypeList
+          name="Еротична білизна"
+          subtitle="Спокуслива та вишукана еротична білизна для особливих моментів"
+          types={
+            categories.find((item) => item.name === "Еротична білизна").types
+          }
+        />
+        <EroticTypeList
+          name="Спідня білизна"
+          subtitle="Зручна та стильна спідня білизна для щоденного комфорту"
+          types={
+            categories.find((item) => item.name === "Спідня білизна").types
+          }
+        />
+        <EroticTypeList
+          name="Мода"
+          subtitle="Актуальні тренди та стильні образи для вашого гардеробу"
+          types={categories.find((item) => item.name === "Мода").types}
+        />
+        <EroticTypeList
+          name="Панчохи, колготки"
+          subtitle="Елегантні панчохи та колготки для завершення стильного образу"
+          types={
+            categories.find((item) => item.name === "Панчохи, колготки").types
+          }
+        />
+        <EroticTypeList
+          name="Купальники"
+          subtitle="Яскраві та стильні купальники для відпочинку та розваг"
+          types={categories.find((item) => item.name === "Купальники").types}
+        />
       </Box>
     </>
   );

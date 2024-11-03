@@ -23,6 +23,12 @@ MainTheme = createTheme(MainTheme, {
       },
       name: "gold",
     }),
+    imageText: MainTheme.palette.augmentColor({
+      color: {
+        main: "#8a1818",
+      },
+      name: "gold",
+    }),
   },
 });
 
@@ -66,6 +72,27 @@ MainTheme = createTheme(MainTheme, {
         fontSize: "20px",
       },
     },
+    type: {
+      color: MainTheme.palette.imageText.main,
+      textShadow: "0px 0px 7px white",
+      fontWeight: "300",
+      fontStyle: "italic",
+      ["&:hover"]: {
+        color: MainTheme.palette.imageText.dark,
+      },
+      fontFamily: ["sans-serif", "Roboto"],
+      fontWeight: 800,
+
+      [MainTheme.breakpoints.up("mobile")]: {
+        fontSize: "12px",
+      },
+      [MainTheme.breakpoints.up("tablet")]: {
+        fontSize: "12px",
+      },
+      [MainTheme.breakpoints.up("desctop")]: {
+        fontSize: "30px",
+      },
+    },
     h1: {
       fontFamily: ["cursive", "Great Vibes"],
       color: MainTheme.palette.gold.main,
@@ -81,6 +108,24 @@ MainTheme = createTheme(MainTheme, {
         fontSize: "170px",
       },
     },
+    h2: {
+      color: MainTheme.palette.gold.main,
+      fontWeight: "400",
+      letterSpacing: "3px",
+      textShadow: "2px 2px 30px black",
+      fontFamily: ["cursive", "Great Vibes"],
+      fontWeight: 600,
+
+      [MainTheme.breakpoints.up("mobile")]: {
+        fontSize: "12px",
+      },
+      [MainTheme.breakpoints.up("tablet")]: {
+        fontSize: "12px",
+      },
+      [MainTheme.breakpoints.up("desctop")]: {
+        fontSize: "52px",
+      },
+    },
     subtitle: {
       fontFamily: ["cursive", "Great Vibes"],
       color: MainTheme.palette.gold.main,
@@ -94,6 +139,25 @@ MainTheme = createTheme(MainTheme, {
       },
       [MainTheme.breakpoints.up("desctop")]: {
         fontSize: "60px",
+      },
+    },
+    body1: {
+      color: MainTheme.palette.gold.main,
+
+      fontWeight: "300",
+      fontStyle: "italic",
+
+      fontFamily: ["sans-serif", "Roboto"],
+      fontWeight: 400,
+
+      [MainTheme.breakpoints.up("mobile")]: {
+        fontSize: "12px",
+      },
+      [MainTheme.breakpoints.up("tablet")]: {
+        fontSize: "12px",
+      },
+      [MainTheme.breakpoints.up("desctop")]: {
+        fontSize: "20px",
       },
     },
   },
