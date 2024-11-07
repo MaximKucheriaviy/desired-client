@@ -8,6 +8,7 @@ import { getCategories, getTypes } from "@/service/api";
 import Link from "next/link";
 import Grid from "@mui/material/Grid2";
 import { EroticTypeList } from "@/Components/ErolicTypeList/EroticTypeList";
+import { Footer } from "@/Components/Footer/Footer";
 
 export const getStaticProps = async () => {
   try {
@@ -137,6 +138,7 @@ export default function Home({ categories = [] }) {
           subtitle="Яскраві та стильні купальники для відпочинку та розваг"
           types={categories.find((item) => item.name === "Купальники").types}
         />
+        <Footer />
       </Box>
     </>
   );

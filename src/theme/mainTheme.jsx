@@ -120,7 +120,7 @@ MainTheme = createTheme(MainTheme, {
         fontSize: "12px",
       },
       [MainTheme.breakpoints.up("tablet")]: {
-        fontSize: "12px",
+        fontSize: "36px",
       },
       [MainTheme.breakpoints.up("desctop")]: {
         fontSize: "52px",
@@ -158,6 +158,25 @@ MainTheme = createTheme(MainTheme, {
       },
       [MainTheme.breakpoints.up("desctop")]: {
         fontSize: "20px",
+      },
+    },
+    body2: {
+      color: MainTheme.palette.gold.main,
+
+      fontWeight: "600",
+      fontStyle: "italic",
+
+      fontFamily: ["sans-serif", "Roboto"],
+      fontWeight: 400,
+
+      [MainTheme.breakpoints.up("mobile")]: {
+        fontSize: "12px",
+      },
+      [MainTheme.breakpoints.up("tablet")]: {
+        fontSize: "12px",
+      },
+      [MainTheme.breakpoints.up("desctop")]: {
+        fontSize: "24px",
       },
     },
   },
