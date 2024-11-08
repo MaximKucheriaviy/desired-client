@@ -179,6 +179,44 @@ MainTheme = createTheme(MainTheme, {
         fontSize: "24px",
       },
     },
+    list: {
+      color: MainTheme.palette.gold.main,
+
+      fontWeight: "300",
+      fontStyle: "italic",
+
+      fontFamily: ["sans-serif", "Roboto"],
+      fontWeight: 400,
+
+      [MainTheme.breakpoints.up("mobile")]: {
+        fontSize: "12px",
+      },
+      [MainTheme.breakpoints.up("tablet")]: {
+        fontSize: "12px",
+      },
+      [MainTheme.breakpoints.up("desctop")]: {
+        fontSize: "18px",
+      },
+    },
+    list2: {
+      color: MainTheme.palette.gold.main,
+
+      fontWeight: "200",
+      fontStyle: "italic",
+
+      fontFamily: ["sans-serif", "Roboto"],
+      fontWeight: 400,
+
+      [MainTheme.breakpoints.up("mobile")]: {
+        fontSize: "12px",
+      },
+      [MainTheme.breakpoints.up("tablet")]: {
+        fontSize: "12px",
+      },
+      [MainTheme.breakpoints.up("desctop")]: {
+        fontSize: "14px",
+      },
+    },
   },
 });
 

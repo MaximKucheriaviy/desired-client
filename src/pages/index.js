@@ -1,14 +1,13 @@
-import { Button, Box, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Header from "@/Components/Header/Header";
 import Image from "next/image";
 import MainTheme from "@/theme/mainTheme";
 import { HeaderSizes } from "@/service/suportStyles";
-import { ContainerFixed } from "@/Components/Container/Container";
+
 import { getCategories, getTypes } from "@/service/api";
-import Link from "next/link";
-import Grid from "@mui/material/Grid2";
 import { EroticTypeList } from "@/Components/ErolicTypeList/EroticTypeList";
 import { Footer } from "@/Components/Footer/Footer";
+import { NavigationBar } from "@/Components/NavigationBar/NavigationBar";
 
 export const getStaticProps = async () => {
   try {
@@ -68,45 +67,7 @@ export default function Home({ categories = [] }) {
             </Typography>
           </Box>
         </Box>
-        <Box sx={{ boxShadow: "0px -7px 20px black" }} component={"section"}>
-          <ContainerFixed>
-            <Grid
-              sx={{
-                height: HeaderSizes,
-                width: "100%",
-              }}
-              variant="nav"
-              container
-            >
-              {categories.map((category, index) => (
-                <Grid
-                  key={category._id}
-                  style={{
-                    borderLeft: index === 0 ? `1px solid gold` : "none",
-                    borderRight: `1px solid gold`,
-                    borderCollapse: "collapse",
-                  }}
-                  size={2}
-                >
-                  <Link
-                    style={{
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderCollapse: "collapse",
-                    }}
-                    href="/"
-                  >
-                    <Typography variant={"category"}>
-                      {category.name}
-                    </Typography>
-                  </Link>
-                </Grid>
-              ))}
-            </Grid>
-          </ContainerFixed>
-        </Box>
+        <NavigationBar categories={categories} />
         <EroticTypeList
           name="Еротична білизна"
           subtitle="Спокуслива та вишукана еротична білизна для особливих моментів"
