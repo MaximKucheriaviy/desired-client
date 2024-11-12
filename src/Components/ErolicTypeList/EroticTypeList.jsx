@@ -17,7 +17,7 @@ export const EroticTypeList = ({ types, name, subtitle }) => {
       sx={{
         marginTop: topMargins,
         paddingBottom: topMargins,
-        borderBottom: `1px solid ${MainTheme.palette.primary.main}`,
+        borderBottom: `1px solid ${MainTheme.palette.darkRed.main}`,
       }}
       variant="section"
     >

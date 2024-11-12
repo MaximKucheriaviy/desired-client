@@ -52,7 +52,7 @@ export default function Header() {
           >
             <Link style={LinkStyle} href="/">
               <FavoriteBorderIcon
-                color="gold"
+                color="primary"
                 sx={{
                   fontSize: {
                     desctop: "32px",
@@ -63,7 +63,7 @@ export default function Header() {
             </Link>
             <Link style={LinkStyle} href="/">
               <ShoppingCartIcon
-                color="gold"
+                color="primary"
                 sx={{
                   fontSize: {
                     desctop: "32px",

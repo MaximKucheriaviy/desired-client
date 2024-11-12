@@ -18,6 +18,7 @@ import Image from "next/image";
 import Grid from "@mui/material/Grid2";
 import { LeftNavigationAccordion } from "@/Components/LeftNavigationAccordion/LeftNavigationAcordion";
 import { ItemCard } from "@/Components/ItemCard/ItemCard";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   const { query } = context;
@@ -35,19 +36,35 @@ export async function getServerSideProps(context) {
   const activeCat = catRes.find((cat) => cat._id === query.category);
   const items = await getAllItems(query);
 
-  console.log(items);
-
   return {
     props: {
       catRes: [...catRes, { _id: "111", name: "Новинки" }],
       categoryes,
       categoryName: activeCat ? activeCat.name : "Desired",
       items,
+      page: query.page ? Number.parseInt(query.page) : 1,
     },
   };
 }
 
-export default function ItemList({ items, catRes, categoryes, categoryName }) {
+export default function ItemList({
+  page,
+  items,
+  catRes,
+  categoryes,
+  categoryName,
+}) {
+  const router = useRouter();
+
+  const onPagination = (event, value) => {
+    const { pathname, query } = router;
+    query.page = value;
+    router.push({
+      pathname,
+      query,
+    });
+  };
+
   return (
     <>
       <Header />
@@ -58,7 +75,7 @@ export default function ItemList({ items, catRes, categoryes, categoryName }) {
               desctop: "10px",
             },
             paddingTop: HeaderSizes,
-            background: `linear-gradient(160deg, ${MainTheme.palette.primary.main} 0%,${MainTheme.palette.primary.dark} 100%);`,
+            background: `linear-gradient(160deg, ${MainTheme.palette.darkRed.main} 0%,${MainTheme.palette.darkRed.dark} 100%);`,
           }}
         >
           <ContainerFixed>
@@ -97,7 +114,7 @@ export default function ItemList({ items, catRes, categoryes, categoryName }) {
         <Grid container>
           <Grid size={2}>
             <Box
-              borderRight={`2px solid ${MainTheme.palette.gold.main}`}
+              borderRight={`2px solid ${MainTheme.palette.primary.main}`}
               boxShadow="10px 10px 20px black"
               minHeight={"100vh"}
               height={"100%"}
@@ -116,7 +133,7 @@ export default function ItemList({ items, catRes, categoryes, categoryName }) {
             <Container
               sx={{
                 width: {
-                  desctop: "1060px",
+                  desctop: "978px",
                 },
               }}
             >
@@ -125,8 +142,25 @@ export default function ItemList({ items, catRes, categoryes, categoryName }) {
                   <ItemCard key={item._id} item={item} />
                 ))}
               </Grid>
-
-              <Pagination color="gold" count={items.totalPages} />
+              {items.totalPages > 1 && (
+                <Box mt={"30px"} justifyContent={"center"} display={"flex"}>
+                  <Pagination
+                    color="button"
+                    shape="rounded"
+                    size="large"
+                    page={page}
+                    onChange={onPagination}
+                    sx={{
+                      "& .MuiPaginationItem-root": {
+                        "&:not(.Mui-selected)": {
+                          color: MainTheme.palette.button.contrastText, // Кастомный цвет для неактивной кнопки
+                        },
+                      },
+                    }}
+                    count={items.totalPages}
+                  />
+                </Box>
+              )}
             </Container>
           </Grid>
         </Grid>

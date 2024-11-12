@@ -3,6 +3,7 @@ import Link from "next/link";
 import Grid from "@mui/material/Grid2";
 import { Box, Typography } from "@mui/material";
 import { HeaderSizes } from "@/service/suportStyles";
+import MainTheme from "@/theme/mainTheme";
 
 export const NavigationBar = ({ categories }) => {
   return (
@@ -27,8 +28,11 @@ export const NavigationBar = ({ categories }) => {
             <Grid
               key={category._id}
               style={{
-                borderLeft: index === 0 ? `1px solid gold` : "none",
-                borderRight: `1px solid gold`,
+                borderLeft:
+                  index === 0
+                    ? `1px solid ${MainTheme.palette.primary.main}`
+                    : "none",
+                borderRight: `1px solid ${MainTheme.palette.primary.main}`,
                 borderCollapse: "collapse",
               }}
               size={2}

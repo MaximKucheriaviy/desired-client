@@ -4,7 +4,7 @@ import MainTheme from "@/theme/mainTheme";
 
 export const StyledHeader = styled(Box)`
   box-shadow: 0px 5px 40px black;
-  background-color: ${MainTheme.palette.primary.main};
+  background-color: ${MainTheme.palette.darkRed.main};
   width: 100%;
   position: fixed;
   z-index: 500;

@@ -43,7 +43,7 @@ export default function Home({ categories = [] }) {
           sx={{
             paddingBottom: HeaderSizes,
             paddingTop: HeaderSizes,
-            background: `linear-gradient(160deg, ${MainTheme.palette.primary.main} 0%,${MainTheme.palette.primary.dark} 100%);`,
+            background: `linear-gradient(160deg, ${MainTheme.palette.darkRed.main} 0%,${MainTheme.palette.darkRed.dark} 100%);`,
           }}
         >
           <Box width={"40%"}>
