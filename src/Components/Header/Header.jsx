@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Badge } from "@mui/material";
 
 import { StyledHeader, LinkStyle } from "./StyledHeader";
 import Link from "next/link";
@@ -7,8 +7,10 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MainTheme from "@/theme/mainTheme";
 import { ContainerFixed } from "../Container/Container";
 import { HeaderSizes } from "@/service/suportStyles";
+import { useBasketSize } from "@/redux/selectors";
 
 export default function Header() {
+  const basketSize = useBasketSize();
   return (
     <StyledHeader component="header">
       <ContainerFixed>
@@ -61,16 +63,18 @@ export default function Header() {
                 }}
               />
             </Link>
-            <Link style={LinkStyle} href="/">
-              <ShoppingCartIcon
-                color="primary"
-                sx={{
-                  fontSize: {
-                    desctop: "32px",
-                    tablet: "24px",
-                  },
-                }}
-              />
+            <Link style={LinkStyle} href="/itemsList/ordererd">
+              <Badge color="primary" badgeContent={basketSize}>
+                <ShoppingCartIcon
+                  color="primary"
+                  sx={{
+                    fontSize: {
+                      desctop: "32px",
+                      tablet: "24px",
+                    },
+                  }}
+                />
+              </Badge>
             </Link>
           </Box>
         </Box>

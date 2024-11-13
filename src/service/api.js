@@ -205,3 +205,14 @@ export const deleteImageFromSet = async (id, image) => {
     console.log(err);
   }
 };
+
+export const getSetOfItems = async (set) => {
+  try {
+    const data = await axios.post(`/item/set`, {
+      set,
+    });
+    return data.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   getBasketFromStorageF,
-  addItemToBasketF,
-  removeItemFromBasketF,
+  updateBasketStorageF,
   clearBasketF,
 } from "@/service/localStorage";
 
@@ -16,13 +15,22 @@ export const basketSlice = createSlice({
       state.value = getBasketFromStorageF();
     },
     addItemToBasket: (state, { payload }) => {
-      state.value = addItemToBasketF(payload);
+      state.value = [...state.value, payload];
+      updateBasketStorageF(state.value);
+    },
+    changeItemSize: (state, { payload }) => {
+      const index = state.value.findIndex(
+        (item) => item.itemID === payload.itemID
+      );
+      state.value[index].siid = payload.siid;
     },
     removeItemFromBasket: (state, { payload }) => {
-      state.value = removeItemFromBasketF(payload);
+      state.value = state.value.filter((item) => item.itemID !== payload);
+      updateBasketStorageF(state.value);
     },
     clearBasket: (state) => {
-      state.value = clearBasketF();
+      state.value = [];
+      clearBasket();
     },
   },
 });

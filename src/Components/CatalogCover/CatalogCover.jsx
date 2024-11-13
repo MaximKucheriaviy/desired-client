@@ -16,6 +16,7 @@ export const CataogCover = ({
   categoryName = "Desired",
   catRes,
   categoryes,
+  noSearch = false,
 }) => {
   return (
     <>
@@ -65,24 +66,26 @@ export const CataogCover = ({
       <NavigationBar categories={catRes} />
       <Box componsnt="section">
         <Grid container>
-          <Grid size={2}>
-            <Box
-              borderRight={`2px solid ${MainTheme.palette.primary.main}`}
-              boxShadow="10px 10px 20px black"
-              minHeight={"100vh"}
-              height={"100%"}
-              zIndex={10}
-              position="relative"
-            >
-              {categoryes.map((category) => (
-                <LeftNavigationAccordion
-                  key={category._id}
-                  category={category}
-                />
-              ))}
-            </Box>
-          </Grid>
-          <Grid sx={{ padding: 5 }} size={10}>
+          {!noSearch && (
+            <Grid size={2}>
+              <Box
+                borderRight={`2px solid ${MainTheme.palette.primary.main}`}
+                boxShadow="10px 10px 20px black"
+                minHeight={"100vh"}
+                height={"100%"}
+                zIndex={10}
+                position="relative"
+              >
+                {categoryes.map((category) => (
+                  <LeftNavigationAccordion
+                    key={category._id}
+                    category={category}
+                  />
+                ))}
+              </Box>
+            </Grid>
+          )}
+          <Grid sx={{ padding: 5, minHeight: "60vh" }} size={10}>
             {children}
           </Grid>
         </Grid>

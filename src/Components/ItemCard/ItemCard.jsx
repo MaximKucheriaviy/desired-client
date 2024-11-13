@@ -5,23 +5,29 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useRouter } from "next/router";
-import { addItemToBasket, removeItemFromBasket } from "@/redux/slices";
+import { addItemToBasket } from "@/redux/slices";
 import { useDispatch } from "react-redux";
-import { useBasket } from "@/redux/selectors";
+import { useBasketItems } from "@/redux/selectors";
 import { useState, useEffect } from "react";
+import { createBasketItem } from "@/service/createBasketItems";
 
 export const ItemCard = ({ item = {} }) => {
   const router = useRouter();
-  const basket = useBasket();
+  const basket = useBasketItems();
   const dispatch = useDispatch();
   const [inBasket, setInBasket] = useState(false);
+
+  console.log(basket);
 
   useEffect(() => {
     setInBasket(basket.some((id) => id === item._id));
   }, [basket]);
 
   const onBasketcliked = () => {
-    dispatch(addItemToBasket(item._id));
+    if (inBasket) {
+      return;
+    }
+    dispatch(addItemToBasket(createBasketItem(item._id, null)));
   };
 
   const navigate = (id) => {
