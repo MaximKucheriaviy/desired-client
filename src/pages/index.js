@@ -8,6 +8,7 @@ import { getCategories, getTypes } from "@/service/api";
 import { EroticTypeList } from "@/Components/ErolicTypeList/EroticTypeList";
 import { Footer } from "@/Components/Footer/Footer";
 import { NavigationBar } from "@/Components/NavigationBar/NavigationBar";
+import { ReduxDefLoader } from "@/Components/ReduxDefLoader";
 
 export const getStaticProps = async () => {
   try {
@@ -34,6 +35,7 @@ export const getStaticProps = async () => {
 export default function Home({ categories = [] }) {
   return (
     <>
+      <ReduxDefLoader />
       <Header />
       <Box component="main">
         <Box

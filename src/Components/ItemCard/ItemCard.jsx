@@ -3,10 +3,26 @@ import { Typography, Box, Button, IconButton } from "@mui/material";
 import MainTheme from "@/theme/mainTheme";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useRouter } from "next/router";
+import { addItemToBasket, removeItemFromBasket } from "@/redux/slices";
+import { useDispatch } from "react-redux";
+import { useBasket } from "@/redux/selectors";
+import { useState, useEffect } from "react";
 
 export const ItemCard = ({ item = {} }) => {
   const router = useRouter();
+  const basket = useBasket();
+  const dispatch = useDispatch();
+  const [inBasket, setInBasket] = useState(false);
+
+  useEffect(() => {
+    setInBasket(basket.some((id) => id === item._id));
+  }, [basket]);
+
+  const onBasketcliked = () => {
+    dispatch(addItemToBasket(item._id));
+  };
 
   const navigate = (id) => {
     router.push({
@@ -43,8 +59,9 @@ export const ItemCard = ({ item = {} }) => {
             // sx={{ border: "1px solid gray" }}
             color="primary"
             size="medium"
+            onClick={onBasketcliked}
           >
-            <ShoppingCartOutlinedIcon />
+            {inBasket ? <ShoppingCartIcon /> : <ShoppingCartOutlinedIcon />}
           </IconButton>
         </Box>
         <Box

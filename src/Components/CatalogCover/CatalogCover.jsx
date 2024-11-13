@@ -9,6 +9,7 @@ import { Footer } from "@/Components/Footer/Footer";
 import MainTheme from "@/theme/mainTheme";
 import { NavigationBar } from "../NavigationBar/NavigationBar";
 import Grid from "@mui/material/Grid2";
+import { ReduxDefLoader } from "../ReduxDefLoader";
 
 export const CataogCover = ({
   children,
@@ -18,6 +19,7 @@ export const CataogCover = ({
 }) => {
   return (
     <>
+      <ReduxDefLoader />
       <Header />
       <Box>
         <Box
