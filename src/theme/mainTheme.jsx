@@ -7,6 +7,15 @@ let MainTheme = createTheme({
 });
 
 MainTheme = createTheme(MainTheme, {
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          color: "white", // Цвет текста
+        },
+      },
+    },
+  },
   palette: {
     mode: "dark",
     primary: MainTheme.palette.augmentColor({
@@ -171,7 +180,7 @@ MainTheme = createTheme(MainTheme, {
         fontSize: "12px",
       },
       [MainTheme.breakpoints.up("desctop")]: {
-        fontSize: "20px",
+        fontSize: "16px",
       },
     },
     body2: {

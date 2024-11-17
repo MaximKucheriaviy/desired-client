@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 export const useBasket = () => {
-  return useSelector((state) => state.basket.value);
+  return useSelector((state) => state.basket.value || []);
 };
 
 export const useBasketItems = () => {

@@ -85,7 +85,10 @@ export const CataogCover = ({
               </Box>
             </Grid>
           )}
-          <Grid sx={{ padding: 5, minHeight: "60vh" }} size={10}>
+          <Grid
+            sx={{ padding: 5, minHeight: "60vh" }}
+            size={noSearch ? 12 : 10}
+          >
             {children}
           </Grid>
         </Grid>
