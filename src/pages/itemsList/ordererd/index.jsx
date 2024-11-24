@@ -1,8 +1,7 @@
-import { Box, Container, Table, TableBody } from "@mui/material";
+import { Box, Table, TableBody, Button } from "@mui/material";
 import { getSetOfItems } from "@/service/api";
 import MainTheme from "@/theme/mainTheme";
-import Grid from "@mui/material/Grid2";
-import { ItemCard } from "@/Components/ItemCard/ItemCard";
+
 import { useRouter } from "next/router";
 import { CataogCover } from "@/Components/CatalogCover/CatalogCover";
 import { starndartRequest } from "@/service/standartRequest";
@@ -25,6 +24,7 @@ export default function OrderedItems({ catRes, categoryes }) {
   const basket = useBasket();
   const basketItems = useBasketItems();
   const [items, setItems] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     (async () => {
@@ -62,6 +62,18 @@ export default function OrderedItems({ catRes, categoryes }) {
               ))}
             </TableBody>
           </Table>
+          <Box sx={{ marginTop: "50px" }}>
+            <Button
+              size="large"
+              disabled={basket.some((item) => !item.siid)}
+              variant="contained"
+              onClick={() =>
+                router.push({ pathname: `${router.pathname}/orderconfirm` })
+              }
+            >
+              Оформити
+            </Button>
+          </Box>
         </ContainerFixed>
       </CataogCover>
     </>
