@@ -15,6 +15,13 @@ MainTheme = createTheme(MainTheme, {
         },
       },
     },
+    MuiAutocomplete: {
+      styleOverrides: {
+        option: {
+          color: "black", // Чёрный цвет текста в выпадающем списке
+        },
+      },
+    },
   },
   palette: {
     mode: "dark",
