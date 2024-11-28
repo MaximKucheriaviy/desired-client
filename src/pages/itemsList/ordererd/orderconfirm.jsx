@@ -8,6 +8,7 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  Button,
 } from "@mui/material";
 import { getSetOfItems } from "@/service/api";
 import MainTheme from "@/theme/mainTheme";
@@ -161,7 +162,7 @@ export default function OrderedItems({ catRes, categoryes }) {
               />
             </FormCover>
             <FormCover>
-              <FormControl>
+              <FormControl sx={{ width: "400px" }}>
                 <FormLabel id="paumentType">
                   <Typography variant="body2">Спосіб оплати</Typography>
                 </FormLabel>
@@ -172,18 +173,31 @@ export default function OrderedItems({ catRes, categoryes }) {
                   onChange={({ target }) => setPaymentType(target.value)}
                 >
                   <FormControlLabel
-                    value="female"
+                    value="bank"
                     control={<Radio />}
-                    label="Female"
+                    label="Банківський переказ"
                   />
                   <FormControlLabel
-                    value="male"
+                    value="receive"
                     control={<Radio />}
-                    label="Male"
+                    label="При отриманні"
                   />
                 </RadioGroup>
               </FormControl>
             </FormCover>
+            <Button
+              disabled={
+                !name ||
+                !sername ||
+                !phone ||
+                !city.Present ||
+                !warehouse.Description ||
+                !paymentType
+              }
+              variant="contained"
+            >
+              Підтвердити замовлення
+            </Button>
           </Box>
         </ContainerFixed>
       </CataogCover>
