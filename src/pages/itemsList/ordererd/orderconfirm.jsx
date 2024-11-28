@@ -10,7 +10,7 @@ import {
   Radio,
   Button,
 } from "@mui/material";
-import { getSetOfItems } from "@/service/api";
+import { createOrder } from "@/service/api";
 import MainTheme from "@/theme/mainTheme";
 import Grid from "@mui/material/Grid2";
 import { useRouter } from "next/router";
@@ -64,6 +64,23 @@ export default function OrderedItems({ catRes, categoryes }) {
       console.log(city.DeliveryCity);
       const res = await getWarehouse(city.DeliveryCity, name);
       setNpWarehouse(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onConfirm = async () => {
+    try {
+      const info = {
+        name,
+        sername,
+        phone,
+        paymentType,
+        deliveryData: JSON.stringify(warehouse),
+        items: basketItems,
+      };
+      const res = await createOrder(info);
+      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -194,6 +211,7 @@ export default function OrderedItems({ catRes, categoryes }) {
                 !warehouse.Description ||
                 !paymentType
               }
+              onClick={onConfirm}
               variant="contained"
             >
               Підтвердити замовлення

@@ -216,3 +216,12 @@ export const getSetOfItems = async (set) => {
     console.log(err);
   }
 };
+
+export const createOrder = async (info) => {
+  try {
+    const data = await axios.post(`/order`, info);
+    return data.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

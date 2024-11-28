@@ -64,7 +64,15 @@ export default function Header() {
               />
             </Link>
             <Link style={LinkStyle} href="/itemsList/ordererd">
-              <Badge color="primary" badgeContent={basketSize}>
+              <Badge
+                sx={{
+                  "& .MuiBadge-badge": {
+                    top: 5,
+                  },
+                }}
+                color="primary"
+                badgeContent={basketSize}
+              >
                 <ShoppingCartIcon
                   color="primary"
                   sx={{
