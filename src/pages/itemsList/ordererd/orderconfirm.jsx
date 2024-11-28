@@ -1,4 +1,14 @@
-import { Box, TextField, Autocomplete } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Autocomplete,
+  Typography,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+} from "@mui/material";
 import { getSetOfItems } from "@/service/api";
 import MainTheme from "@/theme/mainTheme";
 import Grid from "@mui/material/Grid2";
@@ -9,6 +19,7 @@ import { useState, useEffect } from "react";
 import { useBasket, useBasketItems } from "@/redux/selectors";
 import { ContainerFixed } from "@/Components/Container/Container";
 import { getCitys, getWarehouse } from "@/service/npAPI";
+import { FormCover } from "@/Components/FormCover/FormCover";
 
 export async function getServerSideProps(context) {
   const { catRes, categoryes } = await starndartRequest();
@@ -31,6 +42,12 @@ export default function OrderedItems({ catRes, categoryes }) {
   const [warehouse, setWarehouse] = useState({});
   const [warehouseInput, setWarehouseInput] = useState("");
 
+  const [paymentType, setPaymentType] = useState(null);
+
+  const [name, setName] = useState("");
+  const [sername, setSername] = useState("");
+  const [phone, setPhone] = useState("");
+
   const getNewCitys = async (name) => {
     try {
       const res = await getCitys(name);
@@ -45,8 +62,6 @@ export default function OrderedItems({ catRes, categoryes }) {
     try {
       console.log(city.DeliveryCity);
       const res = await getWarehouse(city.DeliveryCity, name);
-      console.log(res);
-
       setNpWarehouse(res);
     } catch (err) {
       console.log(err);
@@ -68,59 +83,107 @@ export default function OrderedItems({ catRes, categoryes }) {
             alignItems={"flex-start"}
             gap={"20px"}
           >
-            <TextField label="Ім'я" />
-            <TextField label="Прізвище" />
-            <TextField label="Телефон" />
-            <Autocomplete
-              sx={{ width: "400px" }}
-              options={npCitys}
-              onChange={async (event, newValue) => {
-                if (!newValue) {
-                  setCity({});
-                  return;
-                }
-                setCity(newValue);
-                setCityInput(city.Present);
-              }}
-              inputValue={cityInput}
-              onInputChange={(event, newInputValue) => {
-                setCityInput(newInputValue);
-                if (newInputValue.length < 3) {
-                  return;
-                }
-
-                setWarehouse({});
-                setWarehouseInput("");
-                getNewCitys(newInputValue);
-              }}
-              getOptionLabel={(option) => {
-                return option.Present || "";
-              }}
-              renderInput={(params) => <TextField {...params} label="Місто" />}
-            />
-            <Autocomplete
-              disabled={!city.DeliveryCity}
-              sx={{ width: "400px" }}
-              options={npWarehouse}
-              onChange={(event, newValue) => {
-                if (!newValue) {
-                  return;
-                }
-                setWarehouse(newValue);
-              }}
-              value={warehouse.Description || ""}
-              inputValue={warehouseInput}
-              onInputChange={async (event, newInputValue) => {
-                setWarehouseInput(newInputValue);
-                await getNewWarehouse(newInputValue);
-              }}
-              getOptionLabel={(option) => {
-                return option.Description || "";
-              }}
-              renderInput={(params) => (
-                <TextField {...params} label="Відділення" />
-              )}
-            />
+            <FormCover>
+              <Typography variant="body2">Контактні дані</Typography>
+              <TextField
+                value={name}
+                onChange={({ target }) => setName(target.value)}
+                sx={{ width: "400px" }}
+                label="Ім'я"
+              />
+              <TextField
+                value={sername}
+                onChange={({ target }) => setSername(target.value)}
+                sx={{ width: "400px" }}
+                label="Прізвище"
+              />
+              <TextField
+                value={phone}
+                onChange={({ target }) => setPhone(target.value)}
+                sx={{ width: "400px" }}
+                label="Телефон"
+              />
+            </FormCover>
+            <FormCover>
+              <Typography variant="body2">Доставка</Typography>
+              <Box width="150px">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/6/63/Nova_Poshta_2022_logo.png"
+                  alt="nova poshta"
+                />
+              </Box>
+              <Autocomplete
+                sx={{ width: "400px" }}
+                options={npCitys}
+                onChange={(event, newValue) => {
+                  if (!newValue) {
+                    setCity({}); // Сбрасываем выбранное значение
+                    setCityInput(""); // Сбрасываем текст в поле ввода
+                    return;
+                  }
+                  setCity(newValue); // Обновляем выбранный город
+                  setCityInput(newValue.Present); // Устанавливаем текст в поле ввода на основе нового значения
+                }}
+                value={city} // Управляемое состояние для выбранного значения
+                inputValue={cityInput} // Управляемое состояние для текста ввода
+                onInputChange={(event, newInputValue) => {
+                  setCityInput(newInputValue); // Обновляем текст в поле ввода
+                  getNewCitys(newInputValue); // Запрашиваем новые города (например, асинхронный поиск)
+                }}
+                getOptionLabel={(option) => option.Present || ""} // Указываем, как отображать текст опций
+                renderInput={(params) => (
+                  <TextField {...params} label="Місто" />
+                )}
+              />
+              <Autocomplete
+                disabled={!city.Present}
+                sx={{ width: "400px" }}
+                options={npWarehouse}
+                onChange={(event, newValue) => {
+                  if (!newValue) {
+                    setWarehouse({}); // Сбрасываем выбранное значение
+                    setWarehouseInput(""); // Сбрасываем текст в поле ввода
+                    return;
+                  }
+                  setWarehouse(newValue); // Обновляем выбранный город
+                  setWarehouseInput(newValue.Description); // Устанавливаем текст в поле ввода на основе нового значения
+                }}
+                value={warehouse} // Управляемое состояние для выбранного значения
+                inputValue={warehouseInput} // Управляемое состояние для текста ввода
+                onInputChange={(event, newInputValue) => {
+                  setWarehouseInput(newInputValue); // Обновляем текст в поле ввода
+                  getNewWarehouse(newInputValue); // Запрашиваем новые города (например, асинхронный поиск)
+                }}
+                getOptionLabel={(option) => option.Description || ""} // Указываем, как отображать текст опций
+                renderInput={(params) => (
+                  <TextField {...params} label="Відділення" />
+                )}
+              />
+            </FormCover>
+            <FormCover>
+              <FormControl>
+                <FormLabel id="paumentType">
+                  <Typography variant="body2">Спосіб оплати</Typography>
+                </FormLabel>
+                <RadioGroup
+                  aria-labelledby="paumentType"
+                  name="paumentType"
+                  value={paymentType}
+                  onChange={({ target }) => setPaymentType(target.value)}
+                >
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio />}
+                    label="Female"
+                  />
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio />}
+                    label="Male"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </FormCover>
           </Box>
         </ContainerFixed>
       </CataogCover>
