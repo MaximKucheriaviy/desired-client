@@ -1,6 +1,5 @@
-import { Box, Table, TableBody, Button } from "@mui/material";
+import { Box, Table, TableBody, Button, Typography } from "@mui/material";
 import { getSetOfItems } from "@/service/api";
-import MainTheme from "@/theme/mainTheme";
 
 import { useRouter } from "next/router";
 import { CataogCover } from "@/Components/CatalogCover/CatalogCover";
@@ -44,8 +43,6 @@ export default function OrderedItems({ catRes, categoryes }) {
       }
     })();
   }, [basket, setItems]);
-  console.log(items);
-
   return (
     <>
       <CataogCover
@@ -55,17 +52,22 @@ export default function OrderedItems({ catRes, categoryes }) {
         noSearch
       >
         <ContainerFixed>
+          {basketItems.length === 0 && (
+            <Typography variant="body2">Корзина наразі порожня</Typography>
+          )}
           <Table display={"flex"} flexDirection={"column"} gap={"20px"}>
             <TableBody>
               {items.map((item) => (
-                <OrderedItem item={item} />
+                <OrderedItem key={item._id} item={item} />
               ))}
             </TableBody>
           </Table>
           <Box sx={{ marginTop: "50px" }}>
             <Button
               size="large"
-              disabled={basket.some((item) => !item.siid)}
+              disabled={
+                basket.some((item) => !item.siid) || basketItems.length === 0
+              }
               variant="contained"
               onClick={() =>
                 router.push({ pathname: `${router.pathname}/orderconfirm` })

@@ -39,7 +39,7 @@ export const basketSlice = createSlice({
     },
     clearBasket: (state) => {
       state.value = [];
-      clearBasket();
+      clearBasketF();
     },
   },
 });

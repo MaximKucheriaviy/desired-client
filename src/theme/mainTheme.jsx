@@ -22,6 +22,13 @@ MainTheme = createTheme(MainTheme, {
         },
       },
     },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          color: "black", // Цвет текста в самих опциях
+        },
+      },
+    },
   },
   palette: {
     mode: "dark",

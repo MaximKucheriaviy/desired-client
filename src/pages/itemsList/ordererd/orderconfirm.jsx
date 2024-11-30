@@ -49,6 +49,8 @@ export default function OrderedItems({ catRes, categoryes }) {
   const [sername, setSername] = useState("");
   const [phone, setPhone] = useState("");
 
+  const router = useRouter();
+
   const getNewCitys = async (name) => {
     try {
       const res = await getCitys(name);
@@ -80,7 +82,8 @@ export default function OrderedItems({ catRes, categoryes }) {
         items: basketItems,
       };
       const res = await createOrder(info);
-      console.log(res);
+      window.localStorage.setItem("orderInfo", JSON.stringify(res));
+      router.push("/itemsList/ordererd/orderresult");
     } catch (err) {
       console.log(err);
     }

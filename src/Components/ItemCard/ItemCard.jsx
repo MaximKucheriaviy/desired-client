@@ -17,8 +17,6 @@ export const ItemCard = ({ item = {} }) => {
   const dispatch = useDispatch();
   const [inBasket, setInBasket] = useState(false);
 
-  console.log(basket);
-
   useEffect(() => {
     setInBasket(basket.some((id) => id === item._id));
   }, [basket]);
@@ -56,14 +54,14 @@ export const ItemCard = ({ item = {} }) => {
         <Box paddingRight={"10px"} justifyContent={"flex-end"} display={"flex"}>
           <IconButton
             // sx={{ border: "1px solid gray" }}
-            color="primary"
+            color="black"
             size="medium"
           >
             <FavoriteBorderIcon />
           </IconButton>
           <IconButton
             // sx={{ border: "1px solid gray" }}
-            color="primary"
+            color="black"
             size="medium"
             onClick={onBasketcliked}
           >

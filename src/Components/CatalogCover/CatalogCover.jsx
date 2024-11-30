@@ -1,5 +1,11 @@
 import Header from "../Header/Header";
-import { Box, Typography, TextField, InputAdornment } from "@mui/material";
+import {
+  Box,
+  Typography,
+  TextField,
+  InputAdornment,
+  Slider,
+} from "@mui/material";
 import { ContainerFixed } from "../Container/Container";
 import Image from "next/image";
 import { HeaderSizes } from "@/service/suportStyles";
@@ -10,6 +16,8 @@ import MainTheme from "@/theme/mainTheme";
 import { NavigationBar } from "../NavigationBar/NavigationBar";
 import Grid from "@mui/material/Grid2";
 import { ReduxDefLoader } from "../ReduxDefLoader";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 export const CataogCover = ({
   children,
@@ -17,7 +25,68 @@ export const CataogCover = ({
   catRes,
   categoryes,
   noSearch = false,
+  maxPrice = 0,
+  minPrice = 0,
 }) => {
+  const [priceLimits, setPriceLimits] = useState([0, 0]);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query.minp && router.query.maxp) {
+      setPriceLimits([
+        Number.parseInt(router.query.minp),
+        Number.parseInt(router.query.maxp),
+      ]);
+    } else {
+      setPriceLimits([minPrice, maxPrice]);
+    }
+  }, [maxPrice, minPrice]);
+
+  const onLowChage = ({ target }) => {
+    setPriceLimits((prev) => {
+      const n = [...prev];
+      n[0] = target.valueAsNumber;
+      return n;
+    });
+  };
+
+  const onHighChange = ({ target }) => {
+    setPriceLimits((prev) => {
+      const n = [...prev];
+      n[1] = target.valueAsNumber;
+      return n;
+    });
+  };
+
+  const onLowChangeFinish = ({ target }) => {
+    setPriceLimits((prev) => {
+      const n = [...prev];
+      n[1] = target.valueAsNumber;
+      return n;
+    });
+    onFinishSlider(target.valueAsNumber, priceLimits[1]);
+  };
+
+  const onHighChangeFinish = ({ target }) => {
+    setPriceLimits((prev) => {
+      const n = [...prev];
+      n[1] = target.valueAsNumber;
+      return n;
+    });
+    onFinishSlider(priceLimits[0], target.valueAsNumber);
+  };
+
+  const onFinishSlider = (minpN, maxpN) => {
+    const { minp, maxp, ...query } = router.query;
+
+    if (minpN > minPrice || maxpN < maxPrice) {
+      query.maxp = maxpN;
+      query.minp = minpN;
+    }
+    router.push({ pathname: router.pathname, query });
+  };
+  console.log(priceLimits);
   return (
     <>
       <ReduxDefLoader />
@@ -63,7 +132,11 @@ export const CataogCover = ({
           </ContainerFixed>
         </Box>
       </Box>
-      <NavigationBar categories={catRes} />
+      <NavigationBar
+        categories={catRes}
+        maxPrice={maxPrice}
+        minPrice={minPrice}
+      />
       <Box componsnt="section">
         <Grid container>
           {!noSearch && (
@@ -82,6 +155,44 @@ export const CataogCover = ({
                     category={category}
                   />
                 ))}
+                {maxPrice !== minPrice && (
+                  <Box padding={"10px"}>
+                    <Typography component={"p"} variant="list">
+                      Ціна
+                    </Typography>
+                    <Box marginTop={"10px"} display={"flex"} gap={"30px"}>
+                      <TextField
+                        label="від"
+                        type="number"
+                        size="small"
+                        value={priceLimits[0]}
+                        onChange={onLowChage}
+                        onInput={onLowChangeFinish}
+                      />
+                      <TextField
+                        label="до"
+                        type="number"
+                        size="small"
+                        value={priceLimits[1]}
+                        onChange={onHighChange}
+                        onInput={onHighChangeFinish}
+                      />
+                    </Box>
+                    <Box padding={"10px"}>
+                      <Slider
+                        onChangeCommitted={() =>
+                          onFinishSlider(priceLimits[0], priceLimits[1])
+                        }
+                        onChange={(event, newValue) => {
+                          setPriceLimits(newValue);
+                        }}
+                        value={priceLimits}
+                        min={minPrice}
+                        max={maxPrice}
+                      />
+                    </Box>
+                  </Box>
+                )}
               </Box>
             </Grid>
           )}

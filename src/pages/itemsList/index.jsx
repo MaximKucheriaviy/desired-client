@@ -1,4 +1,13 @@
-import { Box, Container, Pagination } from "@mui/material";
+import {
+  Box,
+  Container,
+  Pagination,
+  Typography,
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
+} from "@mui/material";
 import { getAllItems } from "@/service/api";
 import MainTheme from "@/theme/mainTheme";
 import Grid from "@mui/material/Grid2";
@@ -6,6 +15,8 @@ import { ItemCard } from "@/Components/ItemCard/ItemCard";
 import { useRouter } from "next/router";
 import { CataogCover } from "@/Components/CatalogCover/CatalogCover";
 import { starndartRequest } from "@/service/standartRequest";
+import { useState } from "react";
+import Link from "next/link";
 
 export async function getServerSideProps(context) {
   const { query } = context;
@@ -21,6 +32,7 @@ export async function getServerSideProps(context) {
       categoryName: activeCat ? activeCat.name : "Desired",
       items,
       page: query.page ? Number.parseInt(query.page) : 1,
+      type: query.type || null,
     },
   };
 }
@@ -31,6 +43,7 @@ export default function ItemList({
   catRes,
   categoryes,
   categoryName,
+  type,
 }) {
   const router = useRouter();
 
@@ -43,12 +56,28 @@ export default function ItemList({
     });
   };
 
+  const categoryItem = categoryes.find(
+    (item) => item.category.name === categoryName
+  );
+  const typeItem = categoryItem
+    ? categoryItem.types.find((item) => item._id === type)
+    : null;
+  const [sortType, setSortType] = useState("ABS");
+
+  const sortChangeHandle = ({ target }) => {
+    setSortType(target.value);
+    const query = { ...router.query, sortType: target.value };
+    router.push({ pathname: router.pathname, query });
+  };
+
   return (
     <>
       <CataogCover
         categoryes={categoryes}
         categoryName={categoryName}
         catRes={catRes}
+        maxPrice={items.maxPrice}
+        minPrice={items.minPrice}
       >
         <Container
           sx={{
@@ -57,6 +86,54 @@ export default function ItemList({
             },
           }}
         >
+          <Box
+            alignItems={"center"}
+            justifyContent={"space-between"}
+            display={"flex"}
+            marginBottom={"20px"}
+          >
+            <Box display={"flex"} gap={"10px"} height={"40px"}>
+              {categoryItem && (
+                <Link
+                  href={{
+                    pathname: "/itemsList",
+                    query: { category: categoryItem.category._id },
+                  }}
+                >
+                  <Typography>{categoryName}</Typography>
+                </Link>
+              )}
+              <Typography>{">"}</Typography>
+              {typeItem && (
+                <Link
+                  href={{
+                    pathname: "/itemsList",
+                    query: {
+                      category: categoryItem.category._id,
+                      type: typeItem._id,
+                    },
+                  }}
+                >
+                  <Typography>{typeItem.name}</Typography>
+                </Link>
+              )}
+            </Box>
+            <Box width={"200px"}>
+              <FormControl size="small" fullWidth>
+                <InputLabel id="sort">Сортувати за</InputLabel>
+                <Select
+                  onChange={sortChangeHandle}
+                  value={sortType}
+                  label="Сортувати за"
+                  labelId="sort"
+                >
+                  <MenuItem value="ABS">Назва A-Я</MenuItem>
+                  <MenuItem value="HPS">Найнижча ціна</MenuItem>
+                  <MenuItem value="LPS">Найвища ціна</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </Box>
           <Grid spacing={5} component="ul" container>
             {items.data.map((item) => (
               <ItemCard key={item._id} item={item} />
