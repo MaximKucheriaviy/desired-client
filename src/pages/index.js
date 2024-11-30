@@ -73,33 +73,29 @@ export default function Home({ categories = [] }) {
         <EroticTypeList
           name="Еротична білизна"
           subtitle="Спокуслива та вишукана еротична білизна для особливих моментів"
-          types={
-            categories.find((item) => item.name === "Еротична білизна").types
-          }
+          category={categories.find((item) => item.name === "Еротична білизна")}
         />
         <EroticTypeList
           name="Спідня білизна"
           subtitle="Зручна та стильна спідня білизна для щоденного комфорту"
-          types={
-            categories.find((item) => item.name === "Спідня білизна").types
-          }
+          category={categories.find((item) => item.name === "Спідня білизна")}
         />
         <EroticTypeList
           name="Мода"
           subtitle="Актуальні тренди та стильні образи для вашого гардеробу"
-          types={categories.find((item) => item.name === "Мода").types}
+          category={categories.find((item) => item.name === "Мода")}
         />
         <EroticTypeList
           name="Панчохи, колготки"
           subtitle="Елегантні панчохи та колготки для завершення стильного образу"
-          types={
-            categories.find((item) => item.name === "Панчохи, колготки").types
-          }
+          category={categories.find(
+            (item) => item.name === "Панчохи, колготки"
+          )}
         />
         <EroticTypeList
           name="Купальники"
           subtitle="Яскраві та стильні купальники для відпочинку та розваг"
-          types={categories.find((item) => item.name === "Купальники").types}
+          category={categories.find((item) => item.name === "Купальники")}
         />
         <Footer />
       </Box>

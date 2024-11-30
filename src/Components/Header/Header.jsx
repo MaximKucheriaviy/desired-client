@@ -32,6 +32,9 @@ export default function Header() {
               },
             }}
           >
+            <Link style={LinkStyle} href="/itemsList">
+              <Typography variant={"link"}>Каталог товарів</Typography>
+            </Link>
             <Link style={LinkStyle} href="/">
               <Typography variant={"link"}>Доставка та оплата</Typography>
             </Link>

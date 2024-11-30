@@ -59,7 +59,12 @@ export const OrderedItem = ({ item }) => {
       <TableCell sx={{ width: "200px" }}>
         <FormControl fullWidth size="small">
           <InputLabel id={item.item._id}>Розмір</InputLabel>
-          <Select onChange={onSizeChange} value={item.siid || ""}>
+          <Select
+            label="Розмір"
+            labelId="item.item._id"
+            onChange={onSizeChange}
+            value={item.siid || ""}
+          >
             {item.item.storedItems.map((sitem) => (
               <MenuItem
                 key={sitem._id}

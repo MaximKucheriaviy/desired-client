@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid2";
 import Link from "next/link";
 import { StyledGrid } from "./StyledEroticTypeList";
 import MainTheme from "@/theme/mainTheme";
+import { useRouter } from "next/router";
 
 const topMargins = {
   desctop: "64px",
@@ -11,7 +12,17 @@ const topMargins = {
   mobile: "32px",
 };
 
-export const EroticTypeList = ({ types, name, subtitle }) => {
+export const EroticTypeList = ({ name, subtitle, category }) => {
+  const router = useRouter();
+  const types = category.types;
+  const onMoreButton = () => {
+    router.push({
+      pathname: "itemsList",
+      query: {
+        category: category._id,
+      },
+    });
+  };
   return (
     <Box
       sx={{
@@ -57,7 +68,10 @@ export const EroticTypeList = ({ types, name, subtitle }) => {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
-                href={"/"}
+                href={{
+                  pathname: "itemsList",
+                  query: { category: category._id, type: type._id },
+                }}
               >
                 <Box className="cover"></Box>
                 <Typography
@@ -81,7 +95,11 @@ export const EroticTypeList = ({ types, name, subtitle }) => {
           ))}
         </Grid>
         <Box sx={{ textAlign: "center", marginTop: topMargins }}>
-          <Button sx={{ width: "300px" }} variant="contained">
+          <Button
+            onClick={onMoreButton}
+            sx={{ width: "300px" }}
+            variant="contained"
+          >
             Дивитись більше
           </Button>
         </Box>
