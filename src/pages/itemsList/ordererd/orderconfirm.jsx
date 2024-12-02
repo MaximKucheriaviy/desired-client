@@ -9,8 +9,12 @@ import {
   FormControlLabel,
   Radio,
   Button,
+  Table,
+  TableCell,
+  TableBody,
+  TableRow,
 } from "@mui/material";
-import { createOrder } from "@/service/api";
+import { createOrder, getSetOfItems } from "@/service/api";
 import MainTheme from "@/theme/mainTheme";
 import Grid from "@mui/material/Grid2";
 import { useRouter } from "next/router";
@@ -51,6 +55,8 @@ export default function OrderedItems({ catRes, categoryes }) {
 
   const router = useRouter();
 
+  const [requestItems, setRequestItems] = useState([]);
+
   const getNewCitys = async (name) => {
     try {
       const res = await getCitys(name);
@@ -79,7 +85,7 @@ export default function OrderedItems({ catRes, categoryes }) {
         phone,
         paymentType,
         deliveryData: JSON.stringify(warehouse),
-        items: basketItems,
+        items: basket.map((item) => item.siid),
       };
       const res = await createOrder(info);
       window.localStorage.setItem("orderInfo", JSON.stringify(res));
@@ -88,6 +94,16 @@ export default function OrderedItems({ catRes, categoryes }) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const items = await getSetOfItems(basketItems);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -98,128 +114,140 @@ export default function OrderedItems({ catRes, categoryes }) {
         noSearch
       >
         <ContainerFixed>
-          <Box
-            display={"flex"}
-            flexDirection={"column"}
-            alignItems={"flex-start"}
-            gap={"20px"}
-          >
-            <FormCover>
-              <Typography variant="body2">Контактні дані</Typography>
-              <TextField
-                value={name}
-                onChange={({ target }) => setName(target.value)}
-                sx={{ width: "400px" }}
-                label="Ім'я"
-              />
-              <TextField
-                value={sername}
-                onChange={({ target }) => setSername(target.value)}
-                sx={{ width: "400px" }}
-                label="Прізвище"
-              />
-              <TextField
-                value={phone}
-                onChange={({ target }) => setPhone(target.value)}
-                sx={{ width: "400px" }}
-                label="Телефон"
-              />
-            </FormCover>
-            <FormCover>
-              <Typography variant="body2">Доставка</Typography>
-              <Box width="150px">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/6/63/Nova_Poshta_2022_logo.png"
-                  alt="nova poshta"
-                />
-              </Box>
-              <Autocomplete
-                sx={{ width: "400px" }}
-                options={npCitys}
-                onChange={(event, newValue) => {
-                  if (!newValue) {
-                    setCity({}); // Сбрасываем выбранное значение
-                    setCityInput(""); // Сбрасываем текст в поле ввода
-                    return;
+          <Grid container>
+            <Grid size={6}>
+              <Box
+                display={"flex"}
+                flexDirection={"column"}
+                alignItems={"flex-start"}
+                gap={"20px"}
+              >
+                <FormCover>
+                  <Typography variant="body2">Контактні дані</Typography>
+                  <TextField
+                    value={name}
+                    onChange={({ target }) => setName(target.value)}
+                    sx={{ width: "400px" }}
+                    label="Ім'я"
+                  />
+                  <TextField
+                    value={sername}
+                    onChange={({ target }) => setSername(target.value)}
+                    sx={{ width: "400px" }}
+                    label="Прізвище"
+                  />
+                  <TextField
+                    value={phone}
+                    onChange={({ target }) => setPhone(target.value)}
+                    sx={{ width: "400px" }}
+                    label="Телефон"
+                  />
+                </FormCover>
+                <FormCover>
+                  <Typography variant="body2">Доставка</Typography>
+                  <Box width="150px">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/6/63/Nova_Poshta_2022_logo.png"
+                      alt="nova poshta"
+                    />
+                  </Box>
+                  <Autocomplete
+                    sx={{ width: "400px" }}
+                    options={npCitys}
+                    onChange={(event, newValue) => {
+                      if (!newValue) {
+                        setCity({}); // Сбрасываем выбранное значение
+                        setCityInput(""); // Сбрасываем текст в поле ввода
+                        return;
+                      }
+                      setCity(newValue); // Обновляем выбранный город
+                      setCityInput(newValue.Present); // Устанавливаем текст в поле ввода на основе нового значения
+                    }}
+                    value={city} // Управляемое состояние для выбранного значения
+                    inputValue={cityInput} // Управляемое состояние для текста ввода
+                    onInputChange={(event, newInputValue) => {
+                      setCityInput(newInputValue); // Обновляем текст в поле ввода
+                      getNewCitys(newInputValue); // Запрашиваем новые города (например, асинхронный поиск)
+                    }}
+                    getOptionLabel={(option) => option.Present || ""} // Указываем, как отображать текст опций
+                    renderInput={(params) => (
+                      <TextField {...params} label="Місто" />
+                    )}
+                  />
+                  <Autocomplete
+                    disabled={!city.Present}
+                    sx={{ width: "400px" }}
+                    options={npWarehouse}
+                    onChange={(event, newValue) => {
+                      if (!newValue) {
+                        setWarehouse({}); // Сбрасываем выбранное значение
+                        setWarehouseInput(""); // Сбрасываем текст в поле ввода
+                        return;
+                      }
+                      setWarehouse(newValue); // Обновляем выбранный город
+                      setWarehouseInput(newValue.Description); // Устанавливаем текст в поле ввода на основе нового значения
+                    }}
+                    value={warehouse} // Управляемое состояние для выбранного значения
+                    inputValue={warehouseInput} // Управляемое состояние для текста ввода
+                    onInputChange={(event, newInputValue) => {
+                      setWarehouseInput(newInputValue); // Обновляем текст в поле ввода
+                      getNewWarehouse(newInputValue); // Запрашиваем новые города (например, асинхронный поиск)
+                    }}
+                    getOptionLabel={(option) => option.Description || ""} // Указываем, как отображать текст опций
+                    renderInput={(params) => (
+                      <TextField {...params} label="Відділення" />
+                    )}
+                  />
+                </FormCover>
+                <FormCover>
+                  <FormControl sx={{ width: "400px" }}>
+                    <FormLabel id="paumentType">
+                      <Typography variant="body2">Спосіб оплати</Typography>
+                    </FormLabel>
+                    <RadioGroup
+                      aria-labelledby="paumentType"
+                      name="paumentType"
+                      value={paymentType}
+                      onChange={({ target }) => setPaymentType(target.value)}
+                    >
+                      <FormControlLabel
+                        value="bank"
+                        control={<Radio />}
+                        label="Банківський переказ"
+                      />
+                      <FormControlLabel
+                        value="receive"
+                        control={<Radio />}
+                        label="При отриманні"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </FormCover>
+                <Button
+                  disabled={
+                    !name ||
+                    !sername ||
+                    !phone ||
+                    !city.Present ||
+                    !warehouse.Description ||
+                    !paymentType
                   }
-                  setCity(newValue); // Обновляем выбранный город
-                  setCityInput(newValue.Present); // Устанавливаем текст в поле ввода на основе нового значения
-                }}
-                value={city} // Управляемое состояние для выбранного значения
-                inputValue={cityInput} // Управляемое состояние для текста ввода
-                onInputChange={(event, newInputValue) => {
-                  setCityInput(newInputValue); // Обновляем текст в поле ввода
-                  getNewCitys(newInputValue); // Запрашиваем новые города (например, асинхронный поиск)
-                }}
-                getOptionLabel={(option) => option.Present || ""} // Указываем, как отображать текст опций
-                renderInput={(params) => (
-                  <TextField {...params} label="Місто" />
-                )}
-              />
-              <Autocomplete
-                disabled={!city.Present}
-                sx={{ width: "400px" }}
-                options={npWarehouse}
-                onChange={(event, newValue) => {
-                  if (!newValue) {
-                    setWarehouse({}); // Сбрасываем выбранное значение
-                    setWarehouseInput(""); // Сбрасываем текст в поле ввода
-                    return;
-                  }
-                  setWarehouse(newValue); // Обновляем выбранный город
-                  setWarehouseInput(newValue.Description); // Устанавливаем текст в поле ввода на основе нового значения
-                }}
-                value={warehouse} // Управляемое состояние для выбранного значения
-                inputValue={warehouseInput} // Управляемое состояние для текста ввода
-                onInputChange={(event, newInputValue) => {
-                  setWarehouseInput(newInputValue); // Обновляем текст в поле ввода
-                  getNewWarehouse(newInputValue); // Запрашиваем новые города (например, асинхронный поиск)
-                }}
-                getOptionLabel={(option) => option.Description || ""} // Указываем, как отображать текст опций
-                renderInput={(params) => (
-                  <TextField {...params} label="Відділення" />
-                )}
-              />
-            </FormCover>
-            <FormCover>
-              <FormControl sx={{ width: "400px" }}>
-                <FormLabel id="paumentType">
-                  <Typography variant="body2">Спосіб оплати</Typography>
-                </FormLabel>
-                <RadioGroup
-                  aria-labelledby="paumentType"
-                  name="paumentType"
-                  value={paymentType}
-                  onChange={({ target }) => setPaymentType(target.value)}
+                  onClick={onConfirm}
+                  variant="contained"
                 >
-                  <FormControlLabel
-                    value="bank"
-                    control={<Radio />}
-                    label="Банківський переказ"
-                  />
-                  <FormControlLabel
-                    value="receive"
-                    control={<Radio />}
-                    label="При отриманні"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </FormCover>
-            <Button
-              disabled={
-                !name ||
-                !sername ||
-                !phone ||
-                !city.Present ||
-                !warehouse.Description ||
-                !paymentType
-              }
-              onClick={onConfirm}
-              variant="contained"
-            >
-              Підтвердити замовлення
-            </Button>
-          </Box>
+                  Підтвердити замовлення
+                </Button>
+              </Box>
+            </Grid>
+            <Grid size={6}>
+              <FormCover>
+                <Typography variant="body2">Замовлення</Typography>
+                <Table>
+                  <TableBody></TableBody>
+                </Table>
+              </FormCover>
+            </Grid>
+          </Grid>
         </ContainerFixed>
       </CataogCover>
     </>

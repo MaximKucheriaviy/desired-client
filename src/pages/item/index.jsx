@@ -1,6 +1,7 @@
 import { starndartRequest } from "@/service/standartRequest";
 import { CataogCover } from "@/Components/CatalogCover/CatalogCover";
 import styled from "@emotion/styled";
+import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import {
   Box,
   Select,
@@ -8,10 +9,16 @@ import {
   InputLabel,
   MenuItem,
   Typography,
+  Button,
 } from "@mui/material";
 import { getItemByID } from "@/service/api";
 import Grid from "@mui/material/Grid2";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createBasketItem } from "@/service/createBasketItems";
+import { useBasketItems } from "@/redux/selectors";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { addItemToBasket, clearBasket } from "@/redux/slices";
 
 export async function getServerSideProps(context) {
   const { catRes, categoryes } = await starndartRequest();
@@ -45,14 +52,37 @@ export default function ItemPage({ catRes, categoryes, item }) {
   const [storedItem, setStoredItem] = useState(null);
   const [images, setImages] = useState([item.image, ...item.imageSet]);
 
-  console.log(images);
+  const router = useRouter();
+  const basket = useBasketItems();
+  const dispatch = useDispatch();
+  const [inBasket, setInBasket] = useState(false);
+
+  useEffect(() => {
+    setInBasket(basket.some((id) => id === item._id));
+  }, [basket]);
+
+  const onBasketcliked = () => {
+    if (inBasket) {
+      return;
+    }
+    dispatch(addItemToBasket(createBasketItem(item._id, null)));
+  };
+
+  const onQuickByClicked = () => {
+    if (!storedItem) {
+      return;
+    }
+    dispatch(clearBasket());
+    dispatch(addItemToBasket(createBasketItem(item._id, storedItem._id)));
+    router.push("/itemsList/ordererd/orderconfirm");
+  };
 
   return (
     <CataogCover catRes={catRes} categoryes={categoryes}>
       <Box padding={1}>
         <Grid container>
           <Grid size={4}>
-            <Box width={"350px"} sx={{ aspectRatio: "9 / 14" }}>
+            <Box width={"300px"} sx={{ aspectRatio: "9 / 14" }}>
               <img
                 style={{ height: "100%", objectFit: "cover" }}
                 src={imagePath}
@@ -98,7 +128,7 @@ export default function ItemPage({ catRes, categoryes, item }) {
                   </Select>
                 </FormControl>
               </Box>
-              <Box marginTop={"100px"} display={"flex"} gap={"20px"}>
+              <Box marginTop={"80px"} display={"flex"} gap={"20px"}>
                 {images.map((item) => (
                   <StyledButton
                     onClick={() => setImagePath(item.url)}
@@ -113,6 +143,24 @@ export default function ItemPage({ catRes, categoryes, item }) {
                     </Box>
                   </StyledButton>
                 ))}
+              </Box>
+              <Box marginTop={"20px"} display={"flex"} gap={"30px"}>
+                <Button
+                  color="button"
+                  variant="contained"
+                  startIcon={<LocalGroceryStoreIcon />}
+                  onClick={onBasketcliked}
+                >
+                  Додати до кошика
+                </Button>
+                <Button
+                  onClick={onQuickByClicked}
+                  // color="primary"
+                  variant="contained"
+                  startIcon={<LocalGroceryStoreIcon />}
+                >
+                  Замовити в один клік
+                </Button>
               </Box>
             </Box>
           </Grid>

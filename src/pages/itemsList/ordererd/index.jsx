@@ -1,4 +1,12 @@
-import { Box, Table, TableBody, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Table,
+  TableBody,
+  Button,
+  Typography,
+  TableRow,
+  TableCell,
+} from "@mui/material";
 import { getSetOfItems } from "@/service/api";
 
 import { useRouter } from "next/router";
@@ -25,6 +33,8 @@ export default function OrderedItems({ catRes, categoryes }) {
   const [items, setItems] = useState([]);
   const router = useRouter();
 
+  const [totalPrice, setTotalPrice] = useState(0);
+
   useEffect(() => {
     (async () => {
       try {
@@ -38,6 +48,18 @@ export default function OrderedItems({ catRes, categoryes }) {
           });
         });
         setItems(res);
+        setTotalPrice(
+          res.reduce(
+            (prev, item) =>
+              prev +
+              (item.siid
+                ? item.item.storedItems.find((si) => si._id === item.siid)
+                    .priceUSD
+                : item.item.storedItems[0].priceUSD) *
+                item.count,
+            0
+          )
+        );
       } catch (err) {
         console.log(err);
       }
@@ -60,6 +82,18 @@ export default function OrderedItems({ catRes, categoryes }) {
               {items.map((item) => (
                 <OrderedItem key={item._id} item={item} />
               ))}
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell>
+                  <Typography>Загальна сума</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="body2">${totalPrice}</Typography>
+                </TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+              </TableRow>
             </TableBody>
           </Table>
           <Box sx={{ marginTop: "50px" }}>
