@@ -13,6 +13,7 @@ import {
   TableCell,
   TableBody,
   TableRow,
+  TableHead,
 } from "@mui/material";
 import { createOrder, getSetOfItems } from "@/service/api";
 import MainTheme from "@/theme/mainTheme";
@@ -47,6 +48,9 @@ export default function OrderedItems({ catRes, categoryes }) {
   const [warehouse, setWarehouse] = useState({});
   const [warehouseInput, setWarehouseInput] = useState("");
 
+  const [items, setItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+
   const [paymentType, setPaymentType] = useState(null);
 
   const [name, setName] = useState("");
@@ -77,6 +81,8 @@ export default function OrderedItems({ catRes, categoryes }) {
     }
   };
 
+  console.log(items);
+
   const onConfirm = async () => {
     try {
       const info = {
@@ -99,11 +105,32 @@ export default function OrderedItems({ catRes, categoryes }) {
     (async () => {
       try {
         const items = await getSetOfItems(basketItems);
+        const res = [];
+        basket.forEach(({ itemID, siid, count }) => {
+          res.push({
+            count,
+            siid,
+            item: items.find((item) => item._id === itemID),
+          });
+        });
+        setItems(res);
+        setTotalPrice(
+          res.reduce(
+            (prev, item) =>
+              prev +
+              (item.siid
+                ? item.item.storedItems.find((si) => si._id === item.siid)
+                    .priceUSD
+                : item.item.storedItems[0].priceUSD) *
+                item.count,
+            0
+          )
+        );
       } catch (err) {
         console.log(err);
       }
     })();
-  }, []);
+  }, [basket, setItems]);
 
   return (
     <>
@@ -243,7 +270,78 @@ export default function OrderedItems({ catRes, categoryes }) {
               <FormCover>
                 <Typography variant="body2">Замовлення</Typography>
                 <Table>
-                  <TableBody></TableBody>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>
+                        <Typography sx={{ fontWeight: "900" }} variant="body1">
+                          Назва
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography sx={{ fontWeight: "900" }} variant="body1">
+                          Вартість
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography sx={{ fontWeight: "900" }} variant="body1">
+                          Кількість
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography sx={{ fontWeight: "900" }} variant="body1">
+                          Загалом
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {items.map((item) => (
+                      <TableRow key={item.item._id}>
+                        <TableCell>
+                          <Typography variant="body1">
+                            {item.item.name}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="body1">
+                            $
+                            {
+                              item.item.storedItems.find(
+                                (si) => si._id === item.siid
+                              ).priceUSD
+                            }
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="body1">x{item.count}</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="body1">
+                            $
+                            {item.item.storedItems.find(
+                              (si) => si._id === item.siid
+                            ).priceUSD * item.count}
+                          </Typography>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                    <TableRow>
+                      <TableCell>
+                        <Typography sx={{ fontWeight: "900" }} variant="body1">
+                          Загальна вартість
+                        </Typography>
+                      </TableCell>
+
+                      <TableCell></TableCell>
+                      <TableCell></TableCell>
+
+                      <TableCell>
+                        <Typography sx={{ fontWeight: "900" }} variant="body1">
+                          ${totalPrice}
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
                 </Table>
               </FormCover>
             </Grid>

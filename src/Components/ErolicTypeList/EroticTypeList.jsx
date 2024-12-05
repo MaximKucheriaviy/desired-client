@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 
 const topMargins = {
   desctop: "64px",
-  tablet: "64px",
+  tablet: "32px",
   mobile: "32px",
 };
 
@@ -44,7 +44,7 @@ export const EroticTypeList = ({ name, subtitle, category }) => {
           sx={{
             marginTop: {
               desctop: "32px",
-              tablet: "64px",
+              tablet: "32px",
               mobile: "32px",
             },
           }}
@@ -53,14 +53,14 @@ export const EroticTypeList = ({ name, subtitle, category }) => {
           container
         >
           {types.map((type) => (
-            <StyledGrid size={3} key={type._id}>
+            <StyledGrid size={{ desctop: 3, tablet: 4 }} key={type._id}>
               <Link
                 style={{
                   backgroundImage: `url("${type.url || "./noImage.jpg"}")`,
                   backgroundSize: "cover",
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",
-                  height: "500px",
+                  aspectRatio: "9 / 14",
                   display: "block",
 
                   position: "relative",

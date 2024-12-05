@@ -140,7 +140,7 @@ export const CataogCover = ({
       <Box componsnt="section">
         <Grid container>
           {!noSearch && (
-            <Grid size={2}>
+            <Grid size={{ desctop: 2, tablet: 3 }}>
               <Box
                 borderRight={`2px solid ${MainTheme.palette.primary.main}`}
                 boxShadow="10px 10px 20px black"
@@ -198,7 +198,7 @@ export const CataogCover = ({
           )}
           <Grid
             sx={{ padding: 5, minHeight: "60vh" }}
-            size={noSearch ? 12 : 10}
+            size={noSearch ? 12 : { desctop: 10, tablet: 9 }}
           >
             {children}
           </Grid>

@@ -83,7 +83,7 @@ MainTheme = createTheme(MainTheme, {
         fontSize: "12px",
       },
       [MainTheme.breakpoints.up("tablet")]: {
-        fontSize: "16px",
+        fontSize: "12px",
       },
       [MainTheme.breakpoints.up("desctop")]: {
         fontSize: "20px",
