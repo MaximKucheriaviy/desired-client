@@ -37,7 +37,7 @@ export const ItemCard = ({ item = {} }) => {
     });
   };
   return (
-    <Grid component="li" size={4}>
+    <Grid component="li" size={{ desctop: 4, tablet: 6 }}>
       <Box
         sx={{
           overflow: "hidden",
@@ -74,7 +74,7 @@ export const ItemCard = ({ item = {} }) => {
           position={"absolute"}
           left={"0px"}
           bottom={"0px"}
-          height={"130px"}
+          height={{ desctop: "130px", tablet: "80px" }}
           display={"flex"}
           flexDirection={"column"}
           justifyContent={"space-between"}

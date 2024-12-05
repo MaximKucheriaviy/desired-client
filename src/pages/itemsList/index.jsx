@@ -87,12 +87,12 @@ export default function ItemList({
           }}
         >
           <Box
-            alignItems={"center"}
+            sx={{ alignItems: "center" }}
             justifyContent={"space-between"}
             display={"flex"}
             marginBottom={"20px"}
           >
-            <Box display={"flex"} gap={"10px"} height={"40px"}>
+            <Box display={"flex"} gap={"10px"}>
               {categoryItem && (
                 <Link
                   href={{
@@ -118,7 +118,7 @@ export default function ItemList({
                 </Link>
               )}
             </Box>
-            <Box width={"200px"}>
+            <Box width={{ desctop: "200px", tablet: "150px", mobile: "100px" }}>
               <FormControl size="small" fullWidth>
                 <InputLabel id="sort">Сортувати за</InputLabel>
                 <Select

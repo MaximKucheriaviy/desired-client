@@ -160,7 +160,12 @@ export const CataogCover = ({
                     <Typography component={"p"} variant="list">
                       Ціна
                     </Typography>
-                    <Box marginTop={"10px"} display={"flex"} gap={"30px"}>
+                    <Box
+                      flexDirection={{ desctop: "row", tablet: "column" }}
+                      marginTop={"10px"}
+                      display={"flex"}
+                      gap={{ desctop: "30px", tablet: "15px" }}
+                    >
                       <TextField
                         label="від"
                         type="number"
