@@ -2,7 +2,7 @@ import MainTheme from "@/theme/mainTheme";
 import { Container } from "@mui/material";
 import { useScreenSize } from "@/service/mediaHooks";
 
-export const ContainerFixed = ({ children }) => {
+export const ContainerFixed = ({ children, full }) => {
   const screenSize = useScreenSize();
   return (
     <Container
@@ -18,7 +18,7 @@ export const ContainerFixed = ({ children }) => {
           modile: MainTheme.spacing(1),
         },
       }}
-      maxWidth={screenSize}
+      maxWidth={full ? "none" : screenSize}
     >
       {children}
     </Container>

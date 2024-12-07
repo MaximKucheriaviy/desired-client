@@ -9,6 +9,7 @@ import { EroticTypeList } from "@/Components/ErolicTypeList/EroticTypeList";
 import { Footer } from "@/Components/Footer/Footer";
 import { NavigationBar } from "@/Components/NavigationBar/NavigationBar";
 import { ReduxDefLoader } from "@/Components/ReduxDefLoader";
+import { styleAdaptor } from "@/service/styleAdaptor";
 
 export const getStaticProps = async () => {
   try {
@@ -47,15 +48,17 @@ export default function Home({ categories = [] }) {
             paddingTop: HeaderSizes,
             background: `linear-gradient(160deg, ${MainTheme.palette.darkRed.main} 0%,${MainTheme.palette.darkRed.dark} 100%);`,
           }}
+          flexDirection={styleAdaptor("column", "row", "row")}
+          alignItems={"center"}
         >
-          <Box width={"40%"}>
+          <Box width={styleAdaptor("100%", "40%", "40%")}>
             <Image src="/logo1.png" width={904} height={400} />
           </Box>
           <Box
             display="flex"
             justifyContent="center"
             flexDirection="column"
-            width={"50%"}
+            width={styleAdaptor("95%", "50%", "50%")}
           >
             <Typography
               sx={{ textAlign: "center" }}
@@ -97,8 +100,8 @@ export default function Home({ categories = [] }) {
           subtitle="Яскраві та стильні купальники для відпочинку та розваг"
           category={categories.find((item) => item.name === "Купальники")}
         />
-        <Footer />
       </Box>
+      {/* <Footer /> */}
     </>
   );
 }

@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material";
 
 let MainTheme = createTheme({
   breakpoints: {
-    values: { mobile: 380, tablet: 768, desctop: 1280 },
+    values: { mobile: 320, tablet: 768, desctop: 1280 },
   },
 });
 
@@ -143,7 +143,7 @@ MainTheme = createTheme(MainTheme, {
       letterSpacing: "5px",
       textShadow: "7px 7px 10px black",
       [MainTheme.breakpoints.up("mobile")]: {
-        fontSize: "12px",
+        fontSize: "80px",
       },
       [MainTheme.breakpoints.up("tablet")]: {
         fontSize: "100px",
@@ -176,7 +176,7 @@ MainTheme = createTheme(MainTheme, {
       letterSpacing: "5px",
       textShadow: "5px 5px 10px black",
       [MainTheme.breakpoints.up("mobile")]: {
-        fontSize: "12px",
+        fontSize: "24px",
       },
       [MainTheme.breakpoints.up("tablet")]: {
         fontSize: "24px",

@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid2";
 import { Box, Typography } from "@mui/material";
 import { HeaderSizes } from "@/service/suportStyles";
 import MainTheme from "@/theme/mainTheme";
+import { styleAdaptor } from "@/service/styleAdaptor";
 
 export const NavigationBar = ({ categories }) => {
   return (
@@ -12,14 +13,15 @@ export const NavigationBar = ({ categories }) => {
         boxShadow: "0px -7px 20px black",
         position: "relative",
         zIndex: "30",
+        overflow: "scroll",
       }}
-      component={"section"}
+      component={"div"}
     >
       <ContainerFixed>
         <Grid
           sx={{
             height: HeaderSizes,
-            width: "100%",
+            width: styleAdaptor("250%", "100%", "100%"),
           }}
           variant="nav"
           container
