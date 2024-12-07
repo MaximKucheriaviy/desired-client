@@ -8,6 +8,13 @@ let MainTheme = createTheme({
 
 MainTheme = createTheme(MainTheme, {
   components: {
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          padding: "12px 12px", // Общие паддинги для всех ячеек таблицы
+        },
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
@@ -124,7 +131,7 @@ MainTheme = createTheme(MainTheme, {
         fontSize: "12px",
       },
       [MainTheme.breakpoints.up("tablet")]: {
-        fontSize: "12px",
+        fontSize: "24px",
       },
       [MainTheme.breakpoints.up("desctop")]: {
         fontSize: "30px",
@@ -191,7 +198,7 @@ MainTheme = createTheme(MainTheme, {
         fontSize: "12px",
       },
       [MainTheme.breakpoints.up("tablet")]: {
-        fontSize: "12px",
+        fontSize: "14px",
       },
       [MainTheme.breakpoints.up("desctop")]: {
         fontSize: "16px",
@@ -210,7 +217,7 @@ MainTheme = createTheme(MainTheme, {
         fontSize: "12px",
       },
       [MainTheme.breakpoints.up("tablet")]: {
-        fontSize: "12px",
+        fontSize: "20px",
       },
       [MainTheme.breakpoints.up("desctop")]: {
         fontSize: "24px",
@@ -267,7 +274,7 @@ MainTheme = createTheme(MainTheme, {
         fontSize: "12px",
       },
       [MainTheme.breakpoints.up("tablet")]: {
-        fontSize: "12px",
+        fontSize: "20px",
       },
       [MainTheme.breakpoints.up("desctop")]: {
         fontSize: "28px",

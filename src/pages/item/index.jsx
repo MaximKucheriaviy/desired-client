@@ -19,6 +19,7 @@ import { useBasketItems } from "@/redux/selectors";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { addItemToBasket, clearBasket } from "@/redux/slices";
+import { useScreenSize } from "@/service/mediaHooks";
 
 export async function getServerSideProps(context) {
   const { catRes, categoryes } = await starndartRequest();
@@ -57,6 +58,7 @@ export default function ItemPage({ catRes, categoryes, item }) {
   const dispatch = useDispatch();
   const [inBasket, setInBasket] = useState(false);
 
+  const screenSize = useScreenSize();
   useEffect(() => {
     setInBasket(basket.some((id) => id === item._id));
   }, [basket]);
@@ -81,8 +83,11 @@ export default function ItemPage({ catRes, categoryes, item }) {
     <CataogCover catRes={catRes} categoryes={categoryes}>
       <Box padding={1}>
         <Grid container>
-          <Grid size={4}>
-            <Box width={"300px"} sx={{ aspectRatio: "9 / 14" }}>
+          <Grid size={{ desctop: 4, tablet: 6 }}>
+            <Box
+              width={{ desctop: "300px", tablet: "220px" }}
+              sx={{ aspectRatio: "9 / 14" }}
+            >
               <img
                 style={{ height: "100%", objectFit: "cover" }}
                 src={imagePath}
@@ -90,8 +95,11 @@ export default function ItemPage({ catRes, categoryes, item }) {
               />
             </Box>
           </Grid>
-          <Grid size={8}>
-            <Typography style={{ fontSize: "36px" }} variant="body2">
+          <Grid size={{ desctop: 8, tablet: 6 }}>
+            <Typography
+              sx={{ fontSize: { tablet: "26px", desctop: "36px" } }}
+              variant="body2"
+            >
               {item.name}
             </Typography>
             <Box marginTop={"20px"}>
@@ -128,13 +136,20 @@ export default function ItemPage({ catRes, categoryes, item }) {
                   </Select>
                 </FormControl>
               </Box>
-              <Box marginTop={"80px"} display={"flex"} gap={"20px"}>
+              <Box
+                marginTop={{ desctop: "80px", tablet: "80px" }}
+                display={"flex"}
+                gap={"20px"}
+              >
                 {images.map((item) => (
                   <StyledButton
                     onClick={() => setImagePath(item.url)}
                     key={item._id}
                   >
-                    <Box sx={{ aspectRatio: "9 / 14" }} width={"100px"}>
+                    <Box
+                      sx={{ aspectRatio: "9 / 14" }}
+                      width={{ desctop: "100px", tablet: "80px" }}
+                    >
                       <img
                         style={{ height: "100%", objectFit: "cover" }}
                         src={item.url}
@@ -144,27 +159,51 @@ export default function ItemPage({ catRes, categoryes, item }) {
                   </StyledButton>
                 ))}
               </Box>
-              <Box marginTop={"20px"} display={"flex"} gap={"30px"}>
-                <Button
-                  color="button"
-                  variant="contained"
-                  startIcon={<LocalGroceryStoreIcon />}
-                  onClick={onBasketcliked}
-                >
-                  Додати до кошика
-                </Button>
-                <Button
-                  onClick={onQuickByClicked}
-                  // color="primary"
-                  variant="contained"
-                  startIcon={<LocalGroceryStoreIcon />}
-                >
-                  Замовити в один клік
-                </Button>
-              </Box>
+              {screenSize === "desctop" && (
+                <Box marginTop={"20px"} display={"flex"} gap={"30px"}>
+                  <Button
+                    color="button"
+                    variant="contained"
+                    startIcon={<LocalGroceryStoreIcon />}
+                    onClick={onBasketcliked}
+                  >
+                    Додати до кошика
+                  </Button>
+                  <Button
+                    onClick={onQuickByClicked}
+                    // color="primary"
+                    variant="contained"
+                    size="Small"
+                    startIcon={<LocalGroceryStoreIcon />}
+                  >
+                    Замовити в один клік
+                  </Button>
+                </Box>
+              )}
             </Box>
           </Grid>
         </Grid>
+        {screenSize === "tablet" && (
+          <Box marginTop={"20px"} display={"flex"} gap={"30px"}>
+            <Button
+              color="button"
+              variant="contained"
+              startIcon={<LocalGroceryStoreIcon />}
+              onClick={onBasketcliked}
+            >
+              Додати до кошика
+            </Button>
+            <Button
+              onClick={onQuickByClicked}
+              // color="primary"
+              variant="contained"
+              size="Small"
+              startIcon={<LocalGroceryStoreIcon />}
+            >
+              Замовити в один клік
+            </Button>
+          </Box>
+        )}
       </Box>
     </CataogCover>
   );

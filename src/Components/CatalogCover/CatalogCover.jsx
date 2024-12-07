@@ -112,7 +112,7 @@ export const CataogCover = ({
                 },
               }}
             >
-              <Box width={100}>
+              <Box width={{ desctop: "120px", tablet: "80px" }}>
                 <Image src="/logo1.png" width={904} height={400} />
               </Box>
               <Typography variant="h2">{categoryName}</Typography>

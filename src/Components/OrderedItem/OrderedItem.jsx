@@ -35,7 +35,12 @@ export const OrderedItem = ({ item }) => {
   return (
     <TableRow>
       <TableCell sx={{ maxWidth: "70px" }}>
-        <Box sx={{ width: "70px", aspectRatio: "9/14" }}>
+        <Box
+          sx={{
+            width: { desctop: "70px", tablet: "60px" },
+            aspectRatio: "9/14",
+          }}
+        >
           <img
             style={{ height: "100%", objectFit: "cover" }}
             src={imagePath}
@@ -56,7 +61,7 @@ export const OrderedItem = ({ item }) => {
             : item.item.storedItems[0].priceUSD}
         </Typography>
       </TableCell>
-      <TableCell sx={{ width: "200px" }}>
+      <TableCell sx={{ width: { desctop: "200px", tablet: "130px" } }}>
         <FormControl fullWidth size="small">
           <InputLabel id={item.item._id}>Розмір</InputLabel>
           <Select

@@ -81,7 +81,7 @@ export default function OrderedItems({ catRes, categoryes }) {
     }
   };
 
-  console.log(items);
+  const fieldSize = { desctop: "400px", tablet: "200px" };
 
   const onConfirm = async () => {
     try {
@@ -142,7 +142,7 @@ export default function OrderedItems({ catRes, categoryes }) {
       >
         <ContainerFixed>
           <Grid container>
-            <Grid size={6}>
+            <Grid size={{ desctop: 6, tablet: 5 }}>
               <Box
                 display={"flex"}
                 flexDirection={"column"}
@@ -154,32 +154,32 @@ export default function OrderedItems({ catRes, categoryes }) {
                   <TextField
                     value={name}
                     onChange={({ target }) => setName(target.value)}
-                    sx={{ width: "400px" }}
+                    sx={{ width: fieldSize }}
                     label="Ім'я"
                   />
                   <TextField
                     value={sername}
                     onChange={({ target }) => setSername(target.value)}
-                    sx={{ width: "400px" }}
+                    sx={{ width: fieldSize }}
                     label="Прізвище"
                   />
                   <TextField
                     value={phone}
                     onChange={({ target }) => setPhone(target.value)}
-                    sx={{ width: "400px" }}
+                    sx={{ width: fieldSize }}
                     label="Телефон"
                   />
                 </FormCover>
                 <FormCover>
                   <Typography variant="body2">Доставка</Typography>
-                  <Box width="150px">
+                  <Box width={{ desctop: "150px", tablet: "100px" }}>
                     <img
                       src="https://upload.wikimedia.org/wikipedia/commons/6/63/Nova_Poshta_2022_logo.png"
                       alt="nova poshta"
                     />
                   </Box>
                   <Autocomplete
-                    sx={{ width: "400px" }}
+                    sx={{ width: fieldSize }}
                     options={npCitys}
                     onChange={(event, newValue) => {
                       if (!newValue) {
@@ -203,7 +203,7 @@ export default function OrderedItems({ catRes, categoryes }) {
                   />
                   <Autocomplete
                     disabled={!city.Present}
-                    sx={{ width: "400px" }}
+                    sx={{ width: fieldSize }}
                     options={npWarehouse}
                     onChange={(event, newValue) => {
                       if (!newValue) {
@@ -227,7 +227,7 @@ export default function OrderedItems({ catRes, categoryes }) {
                   />
                 </FormCover>
                 <FormCover>
-                  <FormControl sx={{ width: "400px" }}>
+                  <FormControl sx={{ width: fieldSize }}>
                     <FormLabel id="paumentType">
                       <Typography variant="body2">Спосіб оплати</Typography>
                     </FormLabel>
@@ -266,10 +266,10 @@ export default function OrderedItems({ catRes, categoryes }) {
                 </Button>
               </Box>
             </Grid>
-            <Grid size={6}>
+            <Grid size={{ desctop: 6, tablet: 7 }}>
               <FormCover>
                 <Typography variant="body2">Замовлення</Typography>
-                <Table>
+                <Table size="small">
                   <TableHead>
                     <TableRow>
                       <TableCell>

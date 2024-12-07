@@ -9,9 +9,11 @@ export const Footer = () => {
       sx={{
         paddingTop: {
           desctop: "40px",
+          tablet: "20px",
         },
         paddingBottom: {
           desctop: "40px",
+          tablet: "20px",
         },
       }}
       component="footer"
