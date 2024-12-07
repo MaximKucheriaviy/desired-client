@@ -128,7 +128,7 @@ MainTheme = createTheme(MainTheme, {
       fontWeight: 800,
 
       [MainTheme.breakpoints.up("mobile")]: {
-        fontSize: "12px",
+        fontSize: "34px",
       },
       [MainTheme.breakpoints.up("tablet")]: {
         fontSize: "24px",
@@ -161,7 +161,7 @@ MainTheme = createTheme(MainTheme, {
       fontWeight: 600,
 
       [MainTheme.breakpoints.up("mobile")]: {
-        fontSize: "12px",
+        fontSize: "30px",
       },
       [MainTheme.breakpoints.up("tablet")]: {
         fontSize: "36px",
@@ -214,7 +214,7 @@ MainTheme = createTheme(MainTheme, {
       fontWeight: 400,
 
       [MainTheme.breakpoints.up("mobile")]: {
-        fontSize: "12px",
+        fontSize: "16px",
       },
       [MainTheme.breakpoints.up("tablet")]: {
         fontSize: "20px",

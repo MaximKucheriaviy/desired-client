@@ -13,7 +13,7 @@ export const NavigationBar = ({ categories }) => {
         boxShadow: "0px -7px 20px black",
         position: "relative",
         zIndex: "30",
-        overflow: "scroll",
+        overflow: styleAdaptor("scroll", "hidden", "hidden"),
       }}
       component={"div"}
     >

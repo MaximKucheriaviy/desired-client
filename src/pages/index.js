@@ -101,7 +101,7 @@ export default function Home({ categories = [] }) {
           category={categories.find((item) => item.name === "Купальники")}
         />
       </Box>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

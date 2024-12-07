@@ -19,7 +19,6 @@ import { useBasketItems } from "@/redux/selectors";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { addItemToBasket, clearBasket } from "@/redux/slices";
-import { useScreenSize } from "@/service/mediaHooks";
 
 export async function getServerSideProps(context) {
   const { catRes, categoryes } = await starndartRequest();
@@ -58,7 +57,6 @@ export default function ItemPage({ catRes, categoryes, item }) {
   const dispatch = useDispatch();
   const [inBasket, setInBasket] = useState(false);
 
-  const screenSize = useScreenSize();
   useEffect(() => {
     setInBasket(basket.some((id) => id === item._id));
   }, [basket]);
@@ -159,51 +157,28 @@ export default function ItemPage({ catRes, categoryes, item }) {
                   </StyledButton>
                 ))}
               </Box>
-              {screenSize === "desctop" && (
-                <Box marginTop={"20px"} display={"flex"} gap={"30px"}>
-                  <Button
-                    color="button"
-                    variant="contained"
-                    startIcon={<LocalGroceryStoreIcon />}
-                    onClick={onBasketcliked}
-                  >
-                    Додати до кошика
-                  </Button>
-                  <Button
-                    onClick={onQuickByClicked}
-                    // color="primary"
-                    variant="contained"
-                    size="Small"
-                    startIcon={<LocalGroceryStoreIcon />}
-                  >
-                    Замовити в один клік
-                  </Button>
-                </Box>
-              )}
+              <Box marginTop={"20px"} display={"flex"} gap={"30px"}>
+                <Button
+                  color="button"
+                  variant="contained"
+                  startIcon={<LocalGroceryStoreIcon />}
+                  onClick={onBasketcliked}
+                >
+                  Додати до кошика
+                </Button>
+                <Button
+                  onClick={onQuickByClicked}
+                  // color="primary"
+                  variant="contained"
+                  size="Small"
+                  startIcon={<LocalGroceryStoreIcon />}
+                >
+                  Замовити в один клік
+                </Button>
+              </Box>
             </Box>
           </Grid>
         </Grid>
-        {screenSize === "tablet" && (
-          <Box marginTop={"20px"} display={"flex"} gap={"30px"}>
-            <Button
-              color="button"
-              variant="contained"
-              startIcon={<LocalGroceryStoreIcon />}
-              onClick={onBasketcliked}
-            >
-              Додати до кошика
-            </Button>
-            <Button
-              onClick={onQuickByClicked}
-              // color="primary"
-              variant="contained"
-              size="Small"
-              startIcon={<LocalGroceryStoreIcon />}
-            >
-              Замовити в один клік
-            </Button>
-          </Box>
-        )}
       </Box>
     </CataogCover>
   );

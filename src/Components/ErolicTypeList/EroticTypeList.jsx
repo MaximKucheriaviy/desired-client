@@ -5,6 +5,8 @@ import Link from "next/link";
 import { StyledGrid } from "./StyledEroticTypeList";
 import MainTheme from "@/theme/mainTheme";
 import { useRouter } from "next/router";
+import { useScreenSize } from "@/service/mediaHooks";
+import { styleAdaptor } from "@/service/styleAdaptor";
 
 const topMargins = {
   desctop: "64px",
@@ -15,6 +17,7 @@ const topMargins = {
 export const EroticTypeList = ({ name, subtitle, category }) => {
   const router = useRouter();
   const types = category.types;
+  const screenSize = useScreenSize();
   const onMoreButton = () => {
     router.push({
       pathname: "itemsList",
@@ -32,7 +35,7 @@ export const EroticTypeList = ({ name, subtitle, category }) => {
       }}
       variant="section"
     >
-      <ContainerFixed>
+      <ContainerFixed full={screenSize === "mobile"}>
         <Box>
           <Typography variant="h2" component="h2">
             {name}
@@ -48,12 +51,12 @@ export const EroticTypeList = ({ name, subtitle, category }) => {
               mobile: "32px",
             },
           }}
-          spacing={3}
+          spacing={styleAdaptor(5, 3, 3)}
           justifyContent="center"
           container
         >
           {types.map((type) => (
-            <StyledGrid size={{ desctop: 3, tablet: 4 }} key={type._id}>
+            <StyledGrid size={styleAdaptor(11, 4, 3)} key={type._id}>
               <Link
                 style={{
                   backgroundImage: `url("${type.url || "./noImage.jpg"}")`,
