@@ -37,7 +37,7 @@ export const ItemCard = ({ item = {} }) => {
     });
   };
   return (
-    <Grid component="li" size={{ desctop: 4, tablet: 6 }}>
+    <Grid component="li" size={{ desctop: 4, tablet: 6, mobile: 12 }}>
       <Box
         sx={{
           overflow: "hidden",

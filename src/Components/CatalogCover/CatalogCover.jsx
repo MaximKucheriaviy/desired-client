@@ -98,7 +98,7 @@ export const CataogCover = ({
             </Grid>
           )}
           <Grid
-            sx={{ padding: 5, minHeight: "60vh" }}
+            sx={{ padding: styleAdaptor(3, 5, 5), minHeight: "60vh" }}
             size={noSearch ? 12 : { desctop: 10, tablet: 9 }}
           >
             {children}

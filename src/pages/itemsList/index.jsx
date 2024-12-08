@@ -17,6 +17,8 @@ import { CataogCover } from "@/Components/CatalogCover/CatalogCover";
 import { starndartRequest } from "@/service/standartRequest";
 import { useState } from "react";
 import Link from "next/link";
+import { styleAdaptor } from "@/service/styleAdaptor";
+import { useScreenSize } from "@/service/mediaHooks";
 
 export async function getServerSideProps(context) {
   const { query } = context;
@@ -46,6 +48,7 @@ export default function ItemList({
   type,
 }) {
   const router = useRouter();
+  const screenSize = useScreenSize();
 
   const onPagination = (event, value) => {
     const { pathname, query } = router;
@@ -70,6 +73,11 @@ export default function ItemList({
     router.push({ pathname: router.pathname, query });
   };
 
+  let pSize = "large";
+  if (screenSize === "mobile") {
+    pSize = "small";
+  }
+
   return (
     <>
       <CataogCover
@@ -87,10 +95,12 @@ export default function ItemList({
           }}
         >
           <Box
-            sx={{ alignItems: "center" }}
             justifyContent={"space-between"}
+            alignItems={styleAdaptor("flex-start", "center", "center")}
             display={"flex"}
             marginBottom={"20px"}
+            flexDirection={styleAdaptor("column", "row", "row")}
+            gap={"20px"}
           >
             <Box display={"flex"} gap={"10px"}>
               {categoryItem && (
@@ -118,7 +128,7 @@ export default function ItemList({
                 </Link>
               )}
             </Box>
-            <Box width={{ desctop: "200px", tablet: "150px", mobile: "100px" }}>
+            <Box width={{ desctop: "200px", tablet: "150px", mobile: "150px" }}>
               <FormControl size="small" fullWidth>
                 <InputLabel id="sort">Сортувати за</InputLabel>
                 <Select
@@ -144,7 +154,7 @@ export default function ItemList({
               <Pagination
                 color="button"
                 shape="rounded"
-                size="large"
+                size={pSize}
                 page={page}
                 onChange={onPagination}
                 sx={{
