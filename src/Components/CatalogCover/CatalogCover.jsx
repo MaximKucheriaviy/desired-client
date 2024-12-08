@@ -1,23 +1,17 @@
 import Header from "../Header/Header";
-import {
-  Box,
-  Typography,
-  TextField,
-  InputAdornment,
-  Slider,
-} from "@mui/material";
+import { Box, Typography, TextField, InputAdornment } from "@mui/material";
 import { ContainerFixed } from "../Container/Container";
 import Image from "next/image";
 import { HeaderSizes } from "@/service/suportStyles";
 import SearchIcon from "@mui/icons-material/Search";
-import { LeftNavigationAccordion } from "@/Components/LeftNavigationAccordion/LeftNavigationAcordion";
 import { Footer } from "@/Components/Footer/Footer";
 import MainTheme from "@/theme/mainTheme";
 import { NavigationBar } from "../NavigationBar/NavigationBar";
 import Grid from "@mui/material/Grid2";
 import { ReduxDefLoader } from "../ReduxDefLoader";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { styleAdaptor } from "@/service/styleAdaptor";
+import { Sidebar } from "../Sidebar/Sidebar";
+import { MyDrawer } from "../MyDrawer/MyDrawer";
 
 export const CataogCover = ({
   children,
@@ -28,69 +22,15 @@ export const CataogCover = ({
   maxPrice = 0,
   minPrice = 0,
 }) => {
-  const [priceLimits, setPriceLimits] = useState([0, 0]);
-
-  const router = useRouter();
-
-  useEffect(() => {
-    if (router.query.minp && router.query.maxp) {
-      setPriceLimits([
-        Number.parseInt(router.query.minp),
-        Number.parseInt(router.query.maxp),
-      ]);
-    } else {
-      setPriceLimits([minPrice, maxPrice]);
-    }
-  }, [maxPrice, minPrice]);
-
-  const onLowChage = ({ target }) => {
-    setPriceLimits((prev) => {
-      const n = [...prev];
-      n[0] = target.valueAsNumber;
-      return n;
-    });
-  };
-
-  const onHighChange = ({ target }) => {
-    setPriceLimits((prev) => {
-      const n = [...prev];
-      n[1] = target.valueAsNumber;
-      return n;
-    });
-  };
-
-  const onLowChangeFinish = ({ target }) => {
-    setPriceLimits((prev) => {
-      const n = [...prev];
-      n[1] = target.valueAsNumber;
-      return n;
-    });
-    onFinishSlider(target.valueAsNumber, priceLimits[1]);
-  };
-
-  const onHighChangeFinish = ({ target }) => {
-    setPriceLimits((prev) => {
-      const n = [...prev];
-      n[1] = target.valueAsNumber;
-      return n;
-    });
-    onFinishSlider(priceLimits[0], target.valueAsNumber);
-  };
-
-  const onFinishSlider = (minpN, maxpN) => {
-    const { minp, maxp, ...query } = router.query;
-
-    if (minpN > minPrice || maxpN < maxPrice) {
-      query.maxp = maxpN;
-      query.minp = minpN;
-    }
-    router.push({ pathname: router.pathname, query });
-  };
-  console.log(priceLimits);
   return (
     <>
       <ReduxDefLoader />
       <Header />
+      <MyDrawer
+        categoryes={categoryes}
+        maxPrice={maxPrice}
+        minPrice={minPrice}
+      />
       <Box>
         <Box
           sx={{
@@ -101,22 +41,32 @@ export const CataogCover = ({
             background: `linear-gradient(160deg, ${MainTheme.palette.darkRed.main} 0%,${MainTheme.palette.darkRed.dark} 100%);`,
           }}
         >
-          <ContainerFixed>
+          <ContainerFixed full>
             <Box
               display={"flex"}
               alignItems={"center"}
-              justifyContent="space-between"
+              justifyContent={styleAdaptor(
+                "flex-start",
+                "space-between",
+                "space-between"
+              )}
+              flexDirection={styleAdaptor("column", "row", "row")}
+              flexWrap={"wrap"}
+              gap={styleAdaptor("10px", "0px", "0px")}
               sx={{
-                height: {
-                  desctop: "100px",
-                },
+                height: styleAdaptor("150px", "100px", "100px"),
+                paddingTop: styleAdaptor("30px", "0px", "0px"),
               }}
             >
-              <Box width={{ desctop: "120px", tablet: "80px" }}>
+              <Box
+                display={styleAdaptor("none", "block", "block")}
+                width={{ desctop: "120px", tablet: "100px", mobile: "80px" }}
+              >
                 <Image src="/logo1.png" width={904} height={400} />
               </Box>
               <Typography variant="h2">{categoryName}</Typography>
               <TextField
+                sx={{ width: styleAdaptor("80%", "auto", "auto") }}
                 size="small"
                 slotProps={{
                   input: {
@@ -132,73 +82,19 @@ export const CataogCover = ({
           </ContainerFixed>
         </Box>
       </Box>
-      <NavigationBar
-        categories={catRes}
-        maxPrice={maxPrice}
-        minPrice={minPrice}
-      />
+      <NavigationBar categories={catRes} />
       <Box componsnt="section">
         <Grid container>
           {!noSearch && (
-            <Grid size={{ desctop: 2, tablet: 3 }}>
-              <Box
-                borderRight={`2px solid ${MainTheme.palette.primary.main}`}
-                boxShadow="10px 10px 20px black"
-                minHeight={"100vh"}
-                height={"100%"}
-                zIndex={10}
-                position="relative"
-              >
-                {categoryes.map((category) => (
-                  <LeftNavigationAccordion
-                    key={category._id}
-                    category={category}
-                  />
-                ))}
-                {maxPrice !== minPrice && (
-                  <Box padding={"10px"}>
-                    <Typography component={"p"} variant="list">
-                      Ціна
-                    </Typography>
-                    <Box
-                      flexDirection={{ desctop: "row", tablet: "column" }}
-                      marginTop={"10px"}
-                      display={"flex"}
-                      gap={{ desctop: "30px", tablet: "15px" }}
-                    >
-                      <TextField
-                        label="від"
-                        type="number"
-                        size="small"
-                        value={priceLimits[0]}
-                        onChange={onLowChage}
-                        onInput={onLowChangeFinish}
-                      />
-                      <TextField
-                        label="до"
-                        type="number"
-                        size="small"
-                        value={priceLimits[1]}
-                        onChange={onHighChange}
-                        onInput={onHighChangeFinish}
-                      />
-                    </Box>
-                    <Box padding={"10px"}>
-                      <Slider
-                        onChangeCommitted={() =>
-                          onFinishSlider(priceLimits[0], priceLimits[1])
-                        }
-                        onChange={(event, newValue) => {
-                          setPriceLimits(newValue);
-                        }}
-                        value={priceLimits}
-                        min={minPrice}
-                        max={maxPrice}
-                      />
-                    </Box>
-                  </Box>
-                )}
-              </Box>
+            <Grid
+              sx={{ display: styleAdaptor("none", "block", "block") }}
+              size={{ desctop: 2, tablet: 3 }}
+            >
+              <Sidebar
+                categoryes={categoryes}
+                maxPrice={maxPrice}
+                minPrice={minPrice}
+              />
             </Grid>
           )}
           <Grid

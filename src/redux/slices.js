@@ -44,6 +44,21 @@ export const basketSlice = createSlice({
   },
 });
 
+export const drawerSlice = createSlice({
+  name: "drawer",
+  initialState: {
+    value: false,
+  },
+  reducers: {
+    openDrawer: (state) => {
+      state.value = true;
+    },
+    closeDrawer: (state) => {
+      state.value = false;
+    },
+  },
+});
+
 export const {
   addItemToBasket,
   removeItemFromBasket,
@@ -52,3 +67,5 @@ export const {
   getBasketFromStorage,
   changeItemSize,
 } = basketSlice.actions;
+
+export const { openDrawer, closeDrawer } = drawerSlice.actions;

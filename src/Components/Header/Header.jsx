@@ -1,5 +1,4 @@
-import { Box, Typography, Badge, IconButton } from "@mui/material";
-
+import { Box, Typography, Badge } from "@mui/material";
 import { StyledHeader, LinkStyle } from "./StyledHeader";
 import Link from "next/link";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -10,8 +9,13 @@ import { HeaderSizes } from "@/service/suportStyles";
 import { useBasketSize } from "@/redux/selectors";
 import { useScreenSize } from "@/service/mediaHooks";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useDispatch } from "react-redux";
+import { openDrawer } from "@/redux/slices";
+import { styleAdaptor } from "@/service/styleAdaptor";
+import { LinkSet } from "../LinkSet/LinkSet";
 
 export default function Header() {
+  const dispatch = useDispatch();
   const screenSize = useScreenSize();
   const basketSize = useBasketSize();
   return (
@@ -25,62 +29,51 @@ export default function Header() {
             height: HeaderSizes,
           }}
         >
-          {screenSize !== "mobile" && (
-            <Box
-              display="flex"
-              sx={{
+          <Box
+            display={styleAdaptor("none", "flex", "flex")}
+            sx={{
+              height: "100%",
+              gap: {
+                desctop: MainTheme.spacing(3),
+                tablet: MainTheme.spacing(2),
+              },
+            }}
+          >
+            <LinkSet />
+          </Box>
+
+          <Box
+            display={styleAdaptor("block", "none", "none")}
+            sx={{
+              height: "100%",
+              gap: {
+                desctop: MainTheme.spacing(3),
+                tablet: MainTheme.spacing(2),
+              },
+            }}
+          >
+            <button
+              onClick={() => dispatch(openDrawer())}
+              style={{
+                border: "none",
+                backgroundColor: "transparent",
+                display: "block",
                 height: "100%",
-                gap: {
-                  desctop: MainTheme.spacing(3),
-                  tablet: MainTheme.spacing(2),
-                },
               }}
             >
-              <Link style={LinkStyle} href="/itemsList">
-                <Typography variant={"link"}>Каталог товарів</Typography>
-              </Link>
-              <Link style={LinkStyle} href="/">
-                <Typography variant={"link"}>Доставка та оплата</Typography>
-              </Link>
-              <Link style={LinkStyle} href="/">
-                <Typography variant={"link"}>Примірка та обмін</Typography>
-              </Link>
-              <Link style={LinkStyle} href="/">
-                <Typography variant={"link"}>Контакти</Typography>
-              </Link>
-            </Box>
-          )}
-          {screenSize === "mobile" && (
-            <Box
-              sx={{
-                height: "100%",
-                gap: {
-                  desctop: MainTheme.spacing(3),
-                  tablet: MainTheme.spacing(2),
-                },
-              }}
-            >
-              <button
-                style={{
-                  border: "none",
-                  backgroundColor: "transparent",
-                  display: "block",
-                  height: "100%",
+              <MenuIcon
+                color="primary"
+                sx={{
+                  fontSize: {
+                    desctop: "32px",
+                    tablet: "24px",
+                    mobile: "32px",
+                  },
                 }}
-              >
-                <MenuIcon
-                  color="primary"
-                  sx={{
-                    fontSize: {
-                      desctop: "32px",
-                      tablet: "24px",
-                      mobile: "32px",
-                    },
-                  }}
-                />
-              </button>
-            </Box>
-          )}
+              />
+            </button>
+          </Box>
+
           <Box
             display="flex"
             sx={{

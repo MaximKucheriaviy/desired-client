@@ -14,3 +14,7 @@ export const useBasketSize = () => {
   let arr = useSelector((state) => state.basket.value);
   return arr.length;
 };
+
+export const useDrawer = () => {
+  return useSelector((state) => state.drawer.value);
+};

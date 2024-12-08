@@ -1,43 +1,33 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Drawer } from "@mui/material";
 import Header from "@/Components/Header/Header";
 import Image from "next/image";
 import MainTheme from "@/theme/mainTheme";
 import { HeaderSizes } from "@/service/suportStyles";
-
-import { getCategories, getTypes } from "@/service/api";
+import { starndartRequest } from "@/service/standartRequest";
 import { EroticTypeList } from "@/Components/ErolicTypeList/EroticTypeList";
 import { Footer } from "@/Components/Footer/Footer";
 import { NavigationBar } from "@/Components/NavigationBar/NavigationBar";
 import { ReduxDefLoader } from "@/Components/ReduxDefLoader";
 import { styleAdaptor } from "@/service/styleAdaptor";
+import { useDispatch } from "react-redux";
+import { MyDrawer } from "@/Components/MyDrawer/MyDrawer";
 
 export const getStaticProps = async () => {
-  try {
-    const categories = await getCategories();
-
-    for (let i = 0; i < categories.length; i++) {
-      categories[i].types = await getTypes(categories[i]._id);
-    }
-
-    return {
-      props: {
-        categories: [...categories, { _id: "111", name: "Новинки" }],
-      },
-    };
-  } catch (err) {
-    return {
-      props: {
-        categories: [],
-      },
-    };
-  }
+  const { categoryes, catRes } = await starndartRequest();
+  return {
+    props: {
+      catRes,
+      categoryes,
+    },
+  };
 };
 
-export default function Home({ categories = [] }) {
+export default function Home({ categoryes = [], catRes }) {
   return (
     <>
       <ReduxDefLoader />
       <Header />
+      <MyDrawer categoryes={categoryes} />
       <Box component="main">
         <Box
           component={"section"}
@@ -72,33 +62,39 @@ export default function Home({ categories = [] }) {
             </Typography>
           </Box>
         </Box>
-        <NavigationBar categories={categories} />
+        <NavigationBar categories={catRes} />
         <EroticTypeList
           name="Еротична білизна"
           subtitle="Спокуслива та вишукана еротична білизна для особливих моментів"
-          category={categories.find((item) => item.name === "Еротична білизна")}
+          category={categoryes.find(
+            (item) => item.category.name === "Еротична білизна"
+          )}
         />
         <EroticTypeList
           name="Спідня білизна"
           subtitle="Зручна та стильна спідня білизна для щоденного комфорту"
-          category={categories.find((item) => item.name === "Спідня білизна")}
+          category={categoryes.find(
+            (item) => item.category.name === "Спідня білизна"
+          )}
         />
         <EroticTypeList
           name="Мода"
           subtitle="Актуальні тренди та стильні образи для вашого гардеробу"
-          category={categories.find((item) => item.name === "Мода")}
+          category={categoryes.find((item) => item.category.name === "Мода")}
         />
         <EroticTypeList
           name="Панчохи, колготки"
           subtitle="Елегантні панчохи та колготки для завершення стильного образу"
-          category={categories.find(
-            (item) => item.name === "Панчохи, колготки"
+          category={categoryes.find(
+            (item) => item.category.name === "Панчохи, колготки"
           )}
         />
         <EroticTypeList
           name="Купальники"
           subtitle="Яскраві та стильні купальники для відпочинку та розваг"
-          category={categories.find((item) => item.name === "Купальники")}
+          category={categoryes.find(
+            (item) => item.category.name === "Купальники"
+          )}
         />
       </Box>
       <Footer />
