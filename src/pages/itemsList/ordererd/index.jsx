@@ -16,6 +16,8 @@ import { useState, useEffect } from "react";
 import { useBasket, useBasketItems } from "@/redux/selectors";
 import { OrderedItem } from "@/Components/OrderedItem/OrderedItem";
 import { ContainerFixed } from "@/Components/Container/Container";
+import { styleAdaptor } from "@/service/styleAdaptor";
+import { OrderedItemGrid } from "@/Components/OrderedItem/OrderedItemGrid";
 
 export async function getServerSideProps(context) {
   const { catRes, categoryes } = await starndartRequest();
@@ -32,8 +34,6 @@ export default function OrderedItems({ catRes, categoryes }) {
   const basketItems = useBasketItems();
   const [items, setItems] = useState([]);
   const router = useRouter();
-
-  console.log(basketItems);
 
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -76,11 +76,13 @@ export default function OrderedItems({ catRes, categoryes }) {
         noSearch
       >
         <ContainerFixed>
-          <p>{items.length}</p>
           {basketItems.length === 0 && (
             <Typography variant="body2">Корзина наразі порожня</Typography>
           )}
-          <Table display={"flex"} flexDirection={"column"} gap={"20px"}>
+          <Table
+            sx={{ display: styleAdaptor("none", "table", "table") }}
+            gap={"20px"}
+          >
             <TableBody>
               {items.map((item) => (
                 <OrderedItem key={item._id} item={item} />
@@ -99,6 +101,14 @@ export default function OrderedItems({ catRes, categoryes }) {
               </TableRow>
             </TableBody>
           </Table>
+          <Box display={styleAdaptor("block", "none", "none")}>
+            {items.map((item) => (
+              <OrderedItemGrid key={item._id} item={item} />
+            ))}
+          </Box>
+          <Typography style={{ fontSize: "24px" }} variant="body2">
+            Всього ${totalPrice}
+          </Typography>
           <Box sx={{ marginTop: "50px" }}>
             <Button
               size="large"

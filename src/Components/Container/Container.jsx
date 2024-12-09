@@ -4,6 +4,8 @@ import { useScreenSize } from "@/service/mediaHooks";
 
 export const ContainerFixed = ({ children, full }) => {
   const screenSize = useScreenSize();
+  console.log(full);
+
   return (
     <Container
       sx={{

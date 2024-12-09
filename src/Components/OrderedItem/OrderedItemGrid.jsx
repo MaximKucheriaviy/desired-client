@@ -3,7 +3,6 @@ import {
   Typography,
   IconButton,
   TableCell,
-  TableRow,
   TextField,
   FormControl,
   InputLabel,
@@ -15,9 +14,9 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useDispatch } from "react-redux";
 import { removeItemFromBasket } from "@/redux/slices";
 import { changeItemCount, changeItemSize } from "@/redux/slices";
-import { styleAdaptor } from "@/service/styleAdaptor";
+import Grid from "@mui/material/Grid2";
 
-export const OrderedItem = ({ item }) => {
+export const OrderedItemGrid = ({ item }) => {
   const dispatch = useDispatch();
   const [imagePath] = useState(item.item.image.url || "/noImage.jpg");
   const onCountChage = ({ target }) => {
@@ -34,8 +33,19 @@ export const OrderedItem = ({ item }) => {
   };
 
   return (
-    <TableRow>
-      <TableCell sx={{ maxWidth: "70px" }}>
+    <Grid
+      paddingTop={"20px"}
+      paddingBottom={"20px"}
+      borderBottom={"1px solid black"}
+      spacing={2}
+      container
+    >
+      <Grid size={12}>
+        <Typography style={{ fontSize: "24px" }} variant="body1">
+          {item.item.name}
+        </Typography>
+      </Grid>
+      <Grid size={6}>
         <Box
           sx={{
             width: { desctop: "70px", tablet: "60px" },
@@ -50,19 +60,27 @@ export const OrderedItem = ({ item }) => {
             alt="cover"
           />
         </Box>
-      </TableCell>
-      <TableCell>
-        <Typography variant="body1">{item.item.name}</Typography>
-      </TableCell>
-      <TableCell>
-        <Typography variant="body1">
+      </Grid>
+      <Grid size={6}>
+        <TextField
+          label="Кількість"
+          onChange={onCountChage}
+          value={item.count}
+          sx={{ width: "100px", color: "white" }}
+          size="small"
+          type="number"
+        />
+      </Grid>
+
+      <Grid size={12}>
+        <Typography style={{ fontSize: "20px" }} variant="body1">
           $
           {item.siid
             ? item.item.storedItems.find((si) => si._id === item.siid).priceUSD
             : item.item.storedItems[0].priceUSD}
         </Typography>
-      </TableCell>
-      <TableCell sx={{ width: { desctop: "200px", tablet: "130px" } }}>
+      </Grid>
+      <Grid size={12}>
         <FormControl fullWidth size="small">
           <InputLabel id={item.item._id}>Розмір</InputLabel>
           <Select
@@ -82,24 +100,20 @@ export const OrderedItem = ({ item }) => {
             ))}
           </Select>
         </FormControl>
-      </TableCell>
-      <TableCell>
-        <TextField
-          onChange={onCountChage}
-          value={item.count}
-          sx={{ width: "100px", color: "white" }}
-          size="small"
-          type="number"
-        />
-      </TableCell>
-      <TableCell>
+      </Grid>
+
+      <Grid size={6}>
         <IconButton
           onClick={() => dispatch(removeItemFromBasket(item.item._id))}
-          size="large"
+          size="small"
+          sx={{
+            border: "1px solid white", // Устанавливаем обводку
+            borderRadius: "20%", // Делаем кнопку круглой (по умолчанию так у IconButton)
+          }}
         >
-          <DeleteOutlineIcon />
+          <DeleteOutlineIcon sx={{ color: "white" }} />
         </IconButton>
-      </TableCell>
-    </TableRow>
+      </Grid>
+    </Grid>
   );
 };

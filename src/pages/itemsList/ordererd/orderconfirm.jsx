@@ -26,6 +26,8 @@ import { useBasket, useBasketItems } from "@/redux/selectors";
 import { ContainerFixed } from "@/Components/Container/Container";
 import { getCitys, getWarehouse } from "@/service/npAPI";
 import { FormCover } from "@/Components/FormCover/FormCover";
+import { styleAdaptor } from "@/service/styleAdaptor";
+import { useScreenSize } from "@/service/mediaHooks";
 
 export async function getServerSideProps(context) {
   const { catRes, categoryes } = await starndartRequest();
@@ -43,22 +45,17 @@ export default function OrderedItems({ catRes, categoryes }) {
   const [npCitys, setNpCitys] = useState([]);
   const [city, setCity] = useState({});
   const [cityInput, setCityInput] = useState("");
-
+  const screensize = useScreenSize();
   const [npWarehouse, setNpWarehouse] = useState([]);
   const [warehouse, setWarehouse] = useState({});
   const [warehouseInput, setWarehouseInput] = useState("");
-
   const [items, setItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-
   const [paymentType, setPaymentType] = useState(null);
-
   const [name, setName] = useState("");
   const [sername, setSername] = useState("");
   const [phone, setPhone] = useState("");
-
   const router = useRouter();
-
   const [requestItems, setRequestItems] = useState([]);
 
   const getNewCitys = async (name) => {
@@ -140,30 +137,33 @@ export default function OrderedItems({ catRes, categoryes }) {
         catRes={catRes}
         noSearch
       >
-        <ContainerFixed>
+        <ContainerFixed full={screensize === "mobile"}>
           <Grid container>
-            <Grid size={{ desctop: 6, tablet: 5 }}>
+            <Grid size={{ desctop: 6, tablet: 5, mobile: 12 }}>
               <Box
                 display={"flex"}
                 flexDirection={"column"}
-                alignItems={"flex-start"}
+                alignItems={styleAdaptor("justify", "flex-start", "flex-start")}
                 gap={"20px"}
               >
                 <FormCover>
                   <Typography variant="body2">Контактні дані</Typography>
                   <TextField
+                    fullWidth
                     value={name}
                     onChange={({ target }) => setName(target.value)}
                     sx={{ width: fieldSize }}
                     label="Ім'я"
                   />
                   <TextField
+                    fullWidth
                     value={sername}
                     onChange={({ target }) => setSername(target.value)}
                     sx={{ width: fieldSize }}
                     label="Прізвище"
                   />
                   <TextField
+                    fullWidth
                     value={phone}
                     onChange={({ target }) => setPhone(target.value)}
                     sx={{ width: fieldSize }}
@@ -172,13 +172,20 @@ export default function OrderedItems({ catRes, categoryes }) {
                 </FormCover>
                 <FormCover>
                   <Typography variant="body2">Доставка</Typography>
-                  <Box width={{ desctop: "150px", tablet: "100px" }}>
+                  <Box
+                    width={{
+                      desctop: "150px",
+                      tablet: "100px",
+                      mobile: "100px",
+                    }}
+                  >
                     <img
                       src="https://upload.wikimedia.org/wikipedia/commons/6/63/Nova_Poshta_2022_logo.png"
                       alt="nova poshta"
                     />
                   </Box>
                   <Autocomplete
+                    fullWidth
                     sx={{ width: fieldSize }}
                     options={npCitys}
                     onChange={(event, newValue) => {
@@ -202,6 +209,7 @@ export default function OrderedItems({ catRes, categoryes }) {
                     )}
                   />
                   <Autocomplete
+                    fullWidth
                     disabled={!city.Present}
                     sx={{ width: fieldSize }}
                     options={npWarehouse}
@@ -266,7 +274,10 @@ export default function OrderedItems({ catRes, categoryes }) {
                 </Button>
               </Box>
             </Grid>
-            <Grid size={{ desctop: 6, tablet: 7 }}>
+            <Grid
+              display={styleAdaptor("none", "block", "block")}
+              size={{ desctop: 6, tablet: 7 }}
+            >
               <FormCover>
                 <Typography variant="body2">Замовлення</Typography>
                 <Table size="small">
