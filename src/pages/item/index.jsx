@@ -2,6 +2,7 @@ import { starndartRequest } from "@/service/standartRequest";
 import { CataogCover } from "@/Components/CatalogCover/CatalogCover";
 import styled from "@emotion/styled";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
+import AdsClickIcon from "@mui/icons-material/AdsClick";
 import {
   Box,
   Select,
@@ -19,6 +20,7 @@ import { useBasketItems } from "@/redux/selectors";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { addItemToBasket, clearBasket } from "@/redux/slices";
+import { styleAdaptor } from "@/service/styleAdaptor";
 
 export async function getServerSideProps(context) {
   const { catRes, categoryes } = await starndartRequest();
@@ -36,7 +38,7 @@ export async function getServerSideProps(context) {
 const StyledButton = styled.button(`
   padding: 0px;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
   outline: none;
   display: block;
@@ -81,9 +83,24 @@ export default function ItemPage({ catRes, categoryes, item }) {
     <CataogCover catRes={catRes} categoryes={categoryes}>
       <Box padding={1}>
         <Grid container>
-          <Grid size={{ desctop: 4, tablet: 6 }}>
+          <Grid
+            display={styleAdaptor("flex", "auto", "auto")}
+            flexDirection={"column"}
+            alignItems={styleAdaptor("center", "flex-start", "flex-start")}
+            gap={"10px"}
+            size={{ desctop: 4, tablet: 6, mobile: 12 }}
+          >
+            <Typography
+              sx={{
+                fontSize: { mobile: "26px", tablet: "26px", desctop: "36px" },
+                display: styleAdaptor("block", "none", "none"),
+              }}
+              variant="body2"
+            >
+              {item.name}
+            </Typography>
             <Box
-              width={{ desctop: "300px", tablet: "220px" }}
+              width={{ desctop: "300px", tablet: "220px", mobile: "220px" }}
               sx={{ aspectRatio: "9 / 14" }}
             >
               <img
@@ -95,7 +112,10 @@ export default function ItemPage({ catRes, categoryes, item }) {
           </Grid>
           <Grid size={{ desctop: 8, tablet: 6 }}>
             <Typography
-              sx={{ fontSize: { tablet: "26px", desctop: "36px" } }}
+              sx={{
+                fontSize: { tablet: "26px", desctop: "36px" },
+                display: styleAdaptor("none", "block", "block"),
+              }}
               variant="body2"
             >
               {item.name}
@@ -135,7 +155,7 @@ export default function ItemPage({ catRes, categoryes, item }) {
                 </FormControl>
               </Box>
               <Box
-                marginTop={{ desctop: "80px", tablet: "80px" }}
+                marginTop={{ desctop: "80px", tablet: "80px", mobile: "20px" }}
                 display={"flex"}
                 gap={"20px"}
               >
@@ -146,7 +166,11 @@ export default function ItemPage({ catRes, categoryes, item }) {
                   >
                     <Box
                       sx={{ aspectRatio: "9 / 14" }}
-                      width={{ desctop: "100px", tablet: "80px" }}
+                      width={{
+                        desctop: "100px",
+                        tablet: "80px",
+                        mobile: "50px",
+                      }}
                     >
                       <img
                         style={{ height: "100%", objectFit: "cover" }}
@@ -157,7 +181,12 @@ export default function ItemPage({ catRes, categoryes, item }) {
                   </StyledButton>
                 ))}
               </Box>
-              <Box marginTop={"20px"} display={"flex"} gap={"30px"}>
+              <Box
+                marginTop={"20px"}
+                display={"flex"}
+                gap={styleAdaptor("10px", "30px", "30px")}
+                flexDirection={styleAdaptor("column", "row', 'row")}
+              >
                 <Button
                   color="button"
                   variant="contained"
@@ -171,7 +200,7 @@ export default function ItemPage({ catRes, categoryes, item }) {
                   // color="primary"
                   variant="contained"
                   size="Small"
-                  startIcon={<LocalGroceryStoreIcon />}
+                  startIcon={<AdsClickIcon />}
                 >
                   Замовити в один клік
                 </Button>

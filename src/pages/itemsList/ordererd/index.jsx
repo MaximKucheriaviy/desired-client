@@ -33,6 +33,8 @@ export default function OrderedItems({ catRes, categoryes }) {
   const [items, setItems] = useState([]);
   const router = useRouter();
 
+  console.log(basketItems);
+
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
@@ -64,7 +66,7 @@ export default function OrderedItems({ catRes, categoryes }) {
         console.log(err);
       }
     })();
-  }, [basket, setItems]);
+  }, [basket, setItems, setTotalPrice]);
   return (
     <>
       <CataogCover
@@ -74,6 +76,7 @@ export default function OrderedItems({ catRes, categoryes }) {
         noSearch
       >
         <ContainerFixed>
+          <p>{items.length}</p>
           {basketItems.length === 0 && (
             <Typography variant="body2">Корзина наразі порожня</Typography>
           )}

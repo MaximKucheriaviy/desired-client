@@ -5,8 +5,10 @@ export const useBasket = () => {
 };
 
 export const useBasketItems = () => {
-  let arr = useSelector((state) => state.basket.value);
-  arr = arr.map((item) => item.itemID);
+  let arr = useSelector((state) => state.basket.value).map(
+    (item) => item.itemID
+  );
+
   return arr;
 };
 
