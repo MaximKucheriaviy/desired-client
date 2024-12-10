@@ -1,0 +1,271 @@
+{
+  "catRes": [
+    { "_id": "671be6d81319fc409d419940", "name": "Спідня білизна", "__v": 0 },
+    { "_id": "671be6d81319fc409d419942", "name": "Еротична білизна", "__v": 0 },
+    { "_id": "671be6d81319fc409d419944", "name": "Мода", "__v": 0 },
+    {
+      "_id": "671be6d91319fc409d419946",
+      "name": "Панчохи, колготки",
+      "__v": 0
+    },
+    { "_id": "671be6d91319fc409d419948", "name": "Купальники", "__v": 0 },
+    { "_id": "111", "name": "Новинки" }
+  ],
+  "categoryes": [
+    {
+      "category": {
+        "_id": "671be6d81319fc409d419940",
+        "name": "Спідня білизна",
+        "__v": 0
+      },
+      "types": [
+        {
+          "_id": "671c0bedc89877ba425cf10a",
+          "name": "Комплект спідньої білизни",
+          "category": "671be6d81319fc409d419940",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730644550/set_g5e0tp.jpg"
+        },
+        {
+          "_id": "671c0bedc89877ba425cf10c",
+          "name": "Бюстгальтер",
+          "category": "671be6d81319fc409d419940",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730624264/bra_tkuff3.jpg"
+        },
+        {
+          "_id": "671c0bedc89877ba425cf10e",
+          "name": "Трусики, стрінги, шортики",
+          "category": "671be6d81319fc409d419940",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730644621/bottom_e48kfn.jpg"
+        },
+        {
+          "_id": "671c0bedc89877ba425cf110",
+          "name": "Корсети, боді",
+          "category": "671be6d81319fc409d419940",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730645195/body_ycjssh.jpg"
+        },
+        {
+          "_id": "671c0bedc89877ba425cf112",
+          "name": "Коригуюча білизна",
+          "category": "671be6d81319fc409d419940",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730645090/shape_y6enqx.jpg"
+        },
+        {
+          "_id": "671c0beec89877ba425cf114",
+          "name": "Пояси для панчіх, підв'язки",
+          "category": "671be6d81319fc409d419940",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730644500/image_4_loh2nv.jpg"
+        },
+        {
+          "_id": "671c0beec89877ba425cf116",
+          "name": "Бретелі та аксесуари",
+          "category": "671be6d81319fc409d419940",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730644951/acess_igcldn.jpg"
+        }
+      ]
+    },
+    {
+      "category": {
+        "_id": "671be6d81319fc409d419942",
+        "name": "Еротична білизна",
+        "__v": 0
+      },
+      "types": [
+        {
+          "_id": "671c0c93441aeb4cc6624fca",
+          "name": "Спокусливі сорочки та халатики",
+          "category": "671be6d81319fc409d419942",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730624336/robe_yz1inc.jpg"
+        },
+        {
+          "_id": "671c0c93441aeb4cc6624fcc",
+          "name": "Сексуальні комплекти білизни",
+          "category": "671be6d81319fc409d419942",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730624585/complect_jxzlcq.jpg"
+        },
+        {
+          "_id": "671c0c93441aeb4cc6624fce",
+          "name": "Ігрові костюми",
+          "category": "671be6d81319fc409d419942",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730624392/costume_fruuje.jpg"
+        },
+        {
+          "_id": "671c0c93441aeb4cc6624fd0",
+          "name": "Клубний одяг",
+          "category": "671be6d81319fc409d419942",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730624677/club_qdwsyx.jpg"
+        },
+        {
+          "_id": "671c0c93441aeb4cc6624fd2",
+          "name": "Відверті боді та корсети",
+          "category": "671be6d81319fc409d419942",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730623683/body_bdevpk.jpg"
+        },
+        {
+          "_id": "671c0c93441aeb4cc6624fd4",
+          "name": "Комбінезон-сітка",
+          "category": "671be6d81319fc409d419942",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730624749/net-wire_pygt6c.jpg"
+        },
+        {
+          "_id": "671c0c94441aeb4cc6624fd6",
+          "name": "Сексуальні шортики та стрінги",
+          "category": "671be6d81319fc409d419942",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730625043/shorts_zbmiaa.jpg"
+        },
+        {
+          "_id": "671c0c94441aeb4cc6624fd8",
+          "name": "Панчохи, пояси підв'язки",
+          "category": "671be6d81319fc409d419942",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730624928/image_ajrtlt.jpg"
+        },
+        {
+          "_id": "671c0c94441aeb4cc6624fda",
+          "name": "Аксесуари",
+          "category": "671be6d81319fc409d419942",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730625178/acsees_cr9iew.jpg"
+        },
+        {
+          "_id": "671c0c94441aeb4cc6624fdc",
+          "name": "Чоловіча еротика",
+          "category": "671be6d81319fc409d419942",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730625179/manerotic_vslphk.jpg"
+        }
+      ]
+    },
+    {
+      "category": {
+        "_id": "671be6d81319fc409d419944",
+        "name": "Мода",
+        "__v": 0
+      },
+      "types": [
+        {
+          "url": "",
+          "_id": "671c0d1fece96aba41f109bb",
+          "name": "﻿Одяг",
+          "category": "671be6d81319fc409d419944",
+          "__v": 0
+        },
+        {
+          "_id": "671c0d1fece96aba41f109bd",
+          "name": "Домашня мода",
+          "category": "671be6d81319fc409d419944",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730645432/image_fj3y1o.jpg"
+        }
+      ]
+    },
+    {
+      "category": {
+        "_id": "671be6d91319fc409d419946",
+        "name": "Панчохи, колготки",
+        "__v": 0
+      },
+      "types": [
+        {
+          "_id": "671c10e6332d746f7111ab19",
+          "name": "Колготки",
+          "category": "671be6d91319fc409d419946",
+          "__v": 0,
+          "url": "https://res.cloudinary.com/de7cmboky/image/upload/v1730645614/image_xfdtsg.jpg"
+        },
+        {
+          "url": "",
+          "_id": "671c10e6332d746f7111ab1b",
+          "name": "Легінси",
+          "category": "671be6d91319fc409d419946",
+          "__v": 0
+        },
+        {
+          "url": "",
+          "_id": "671c10e6332d746f7111ab1d",
+          "name": "Панчохи",
+          "category": "671be6d91319fc409d419946",
+          "__v": 0
+        },
+        {
+          "url": "",
+          "_id": "671c10e7332d746f7111ab1f",
+          "name": "Гольфи",
+          "category": "671be6d91319fc409d419946",
+          "__v": 0
+        },
+        {
+          "url": "",
+          "_id": "671c10e7332d746f7111ab21",
+          "name": "Шкарпетки",
+          "category": "671be6d91319fc409d419946",
+          "__v": 0
+        },
+        {
+          "url": "",
+          "_id": "671c10e7332d746f7111ab23",
+          "name": "Дитячі колготки",
+          "category": "671be6d91319fc409d419946",
+          "__v": 0
+        }
+      ]
+    },
+    {
+      "category": {
+        "_id": "671be6d91319fc409d419948",
+        "name": "Купальники",
+        "__v": 0
+      },
+      "types": [
+        {
+          "url": "",
+          "_id": "671c1169dd674fd0e668c73b",
+          "name": "Купальник роздільний",
+          "category": "671be6d91319fc409d419948",
+          "__v": 0
+        },
+        {
+          "url": "",
+          "_id": "671c1169dd674fd0e668c73d",
+          "name": "Верх від упальника",
+          "category": "671be6d91319fc409d419948",
+          "__v": 0
+        },
+        {
+          "url": "",
+          "_id": "671c116add674fd0e668c73f",
+          "name": "Плавки",
+          "category": "671be6d91319fc409d419948",
+          "__v": 0
+        },
+        {
+          "url": "",
+          "_id": "671c116add674fd0e668c741",
+          "name": "Купальник цільний",
+          "category": "671be6d91319fc409d419948",
+          "__v": 0
+        },
+        {
+          "url": "",
+          "_id": "671c116add674fd0e668c743",
+          "name": "Пляжне плаття",
+          "category": "671be6d91319fc409d419948",
+          "__v": 0
+        }
+      ]
+    }
+  ]
+}

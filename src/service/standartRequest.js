@@ -1,14 +1,7 @@
 import { getCategories, getTypes } from "./api";
+import jsonDATA from "@/service/dataINFO.json";
 
 export const starndartRequest = async () => {
-  const catRes = await getCategories();
-  const categoryes = [];
-
-  for (let i = 0; i < catRes.length; i++) {
-    categoryes.push({
-      category: catRes[i],
-      types: await getTypes(catRes[i]._id),
-    });
-  }
-  return { catRes: [...catRes, { _id: "111", name: "Новинки" }], categoryes };
+  const { catRes, categoryes } = jsonDATA;
+  return { catRes, categoryes };
 };
