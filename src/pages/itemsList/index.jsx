@@ -21,12 +21,6 @@ import { styleAdaptor } from "@/service/styleAdaptor";
 import { useScreenSize } from "@/service/mediaHooks";
 
 export async function getServerSideProps(context) {
-  const isFirstLoad = !context.req.url.startsWith("/_next"); // На первой загрузке запрос идёт на сервер, а клиентская навигация идёт через `/next/`.
-  if (isFirstLoad) {
-    console.log("first load");
-  } else {
-    console.log("navigation");
-  }
   const { query } = context;
   query.limit = 12;
   const { catRes, categoryes } = await starndartRequest();
@@ -97,6 +91,7 @@ export default function ItemList({
           sx={{
             width: {
               desctop: "978px",
+              mobile: "100%",
             },
           }}
         >
@@ -119,7 +114,7 @@ export default function ItemList({
                   <Typography>{categoryName}</Typography>
                 </Link>
               )}
-              <Typography>{">"}</Typography>
+              {categoryItem && <Typography>{">"}</Typography>}
               {typeItem && (
                 <Link
                   href={{

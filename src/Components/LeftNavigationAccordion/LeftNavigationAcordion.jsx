@@ -9,8 +9,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Link from "next/link";
 
 export const LeftNavigationAccordion = ({ category, key }) => {
-  console.log(category);
-
   return (
     <Accordion
       key={key}

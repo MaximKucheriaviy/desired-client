@@ -29,7 +29,6 @@ export const basketSlice = createSlice({
       const index = state.value.findIndex(
         (item) => item.itemID === payload.itemID
       );
-      console.log(payload.itemID);
       state.value[index].count = payload.count;
       updateBasketStorageF(state.value);
     },

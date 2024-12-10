@@ -7,7 +7,6 @@ import MainTheme from "@/theme/mainTheme";
 import { ContainerFixed } from "../Container/Container";
 import { HeaderSizes } from "@/service/suportStyles";
 import { useBasketSize } from "@/redux/selectors";
-import { useScreenSize } from "@/service/mediaHooks";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useDispatch } from "react-redux";
 import { openDrawer } from "@/redux/slices";
@@ -16,7 +15,6 @@ import { LinkSet } from "../LinkSet/LinkSet";
 
 export default function Header() {
   const dispatch = useDispatch();
-  const screenSize = useScreenSize();
   const basketSize = useBasketSize();
   return (
     <StyledHeader component="header">

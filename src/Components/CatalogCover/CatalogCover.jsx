@@ -12,6 +12,8 @@ import { ReduxDefLoader } from "../ReduxDefLoader";
 import { styleAdaptor } from "@/service/styleAdaptor";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { MyDrawer } from "../MyDrawer/MyDrawer";
+import { useState, useRef } from "react";
+import { useRouter } from "next/router";
 
 export const CataogCover = ({
   children,
@@ -22,6 +24,9 @@ export const CataogCover = ({
   maxPrice = 0,
   minPrice = 0,
 }) => {
+  const [search, setSearch] = useState("");
+  const router = useRouter();
+  const searchRef = useRef(null);
   return (
     <>
       <ReduxDefLoader />
@@ -66,8 +71,33 @@ export const CataogCover = ({
               </Box>
               <Typography variant="h2">{categoryName}</Typography>
               <TextField
+                inputRef={searchRef}
+                value={search}
+                onChange={({ target }) => setSearch(target.value)}
+                onBlur={() => {
+                  if (search.length < 1) {
+                    return;
+                  }
+                  router.push({
+                    pathname: "/itemsList",
+                    query: { name: search },
+                  });
+                }}
+                onKeyDown={(event) => {
+                  if (event.key !== "Enter") {
+                    return;
+                  }
+                  if (search.length < 1) {
+                    return;
+                  }
+                  if (searchRef.current) {
+                    searchRef.current.blur();
+                  }
+                  console.log("here");
+                }}
                 sx={{ width: styleAdaptor("80%", "auto", "auto") }}
                 size="small"
+                autoFocus={false}
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -99,7 +129,7 @@ export const CataogCover = ({
           )}
           <Grid
             sx={{ padding: styleAdaptor(3, 5, 5), minHeight: "60vh" }}
-            size={noSearch ? 12 : { desctop: 10, tablet: 9 }}
+            size={noSearch ? 12 : { desctop: 10, tablet: 9, mobile: 12 }}
           >
             {children}
           </Grid>

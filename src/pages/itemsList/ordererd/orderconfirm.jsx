@@ -70,7 +70,6 @@ export default function OrderedItems({ catRes, categoryes }) {
 
   const getNewWarehouse = async (name) => {
     try {
-      console.log(city.DeliveryCity);
       const res = await getWarehouse(city.DeliveryCity, name);
       setNpWarehouse(res);
     } catch (err) {
