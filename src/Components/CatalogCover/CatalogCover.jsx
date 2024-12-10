@@ -62,7 +62,7 @@ export const CataogCover = ({
                 display={styleAdaptor("none", "block", "block")}
                 width={{ desctop: "120px", tablet: "100px", mobile: "80px" }}
               >
-                <Image src="/logo1.png" width={904} height={400} />
+                <Image src="/logo1.png" alt="logo" width={904} height={400} />
               </Box>
               <Typography variant="h2">{categoryName}</Typography>
               <TextField

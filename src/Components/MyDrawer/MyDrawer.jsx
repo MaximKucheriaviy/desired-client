@@ -24,7 +24,7 @@ export const MyDrawer = ({ categoryes, maxPrice, minPrice }) => {
         padding={"10px"}
       >
         <Box width={{ desctop: "120px", tablet: "100px", mobile: "80px" }}>
-          <Image src="/logo1.png" width={904} height={400} />
+          <Image src="/logo1.png" alt="logo" width={904} height={400} />
         </Box>
       </Box>
       <Box

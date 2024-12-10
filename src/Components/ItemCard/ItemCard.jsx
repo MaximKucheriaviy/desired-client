@@ -19,7 +19,7 @@ export const ItemCard = ({ item = {} }) => {
 
   useEffect(() => {
     setInBasket(basket.some((id) => id === item._id));
-  }, [basket]);
+  }, [basket, item._id]);
 
   const onBasketcliked = () => {
     if (inBasket) {

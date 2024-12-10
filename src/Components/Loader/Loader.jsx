@@ -27,7 +27,7 @@ export const Loader = () => {
       router.events.off("routeChangeComplete", handleComplete);
       router.events.off("routeChangeError", handleComplete);
     };
-  }, [router]);
+  }, [router, dispatch]);
   if (!loading) {
     return <></>;
   }

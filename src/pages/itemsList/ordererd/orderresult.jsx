@@ -32,7 +32,7 @@ export default function OrderResult({ catRes, categoryes }) {
       window.localStorage.removeItem("orderInfo");
       dispatch(clearBasket());
     }
-  }, [order, setOrder]);
+  }, [order, setOrder, dispatch]);
   return (
     <CataogCover
       categoryes={categoryes}
@@ -62,7 +62,7 @@ export default function OrderResult({ catRes, categoryes }) {
           component={"p"}
           variant="body2"
         >
-          Адміністратор зв'яжеться з вами найближчим часом
+          Адміністратор зв{`'`}яжеться з вами найближчим часом
         </Typography>
       </Box>
     </CataogCover>

@@ -16,7 +16,7 @@ export const Sidebar = ({ categoryes, maxPrice = 0, minPrice = 0 }) => {
     } else {
       setPriceLimits([minPrice, maxPrice]);
     }
-  }, [maxPrice, minPrice]);
+  }, [maxPrice, minPrice, router.query.maxp, router.query.minp]);
 
   const onLowChage = ({ target }) => {
     setPriceLimits((prev) => {
