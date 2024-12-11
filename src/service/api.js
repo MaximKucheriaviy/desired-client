@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// axios.defaults.baseURL = "https://desired-server.onrender.com/api";
-axios.defaults.baseURL = "http://localhost:3001/api";
+axios.defaults.baseURL = "https://desired-server.onrender.com/api";
+// axios.defaults.baseURL = "http://localhost:3001/api";
 
 export const createBrand = async (name) => {
   try {
